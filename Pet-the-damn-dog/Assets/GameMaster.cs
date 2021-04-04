@@ -15,8 +15,22 @@ public class GameMaster : MonoBehaviour
         return instance;
     }
 
-    float clickPower;
+    private PointsController pointsController;
+    private PetPointController petPointController;
 
+    private void Awake()
+    {
+        pointsController = FindObjectOfType<PointsController>();
+        petPointController = FindObjectOfType<PetPointController>();
+
+    }
+
+    float clickPower = 1.0f;
+    public void click()
+    {
+        pointsController.addPointsToTotal(clickPower);
+        petPointController.spawnPetPoint(clickPower);
+    }
     public void addClickPower(float value) { clickPower += value; }
     public float getClickPower() { return clickPower; }
 

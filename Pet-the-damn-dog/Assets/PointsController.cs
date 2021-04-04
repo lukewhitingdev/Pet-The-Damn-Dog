@@ -32,7 +32,6 @@ public class PointsController : MonoBehaviour
         while (true)
         {
             addPointsToTotal(pps);                                  // Add ours points per second to the total points every second.
-            // Place your method calls
             yield return waitForSeconds;                            // Wait the 1 second.
         }
     }

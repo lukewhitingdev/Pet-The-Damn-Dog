@@ -6,6 +6,9 @@ TagManager:
   tags:
   - '[UI]TotalLovePoints'
   - '[UI]PointsPerSecond'
+  - '[ShopUI]Item'
+  - '[ShopUI]Title'
+  - '[ShopUI]Content'
   layers:
   - Default
   - TransparentFX
