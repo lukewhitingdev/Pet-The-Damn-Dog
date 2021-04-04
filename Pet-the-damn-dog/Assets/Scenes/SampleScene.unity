@@ -712,6 +712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1019925939}
+  - component: {fileID: 1019925940}
   m_Layer: 5
   m_Name: PointsUI
   m_TagString: Untagged
@@ -740,6 +741,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000015259, y: 420}
   m_SizeDelta: {x: 805.36084, y: 166.19838}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1019925940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019925938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969e8954399d1b949b8084b9ac947fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1033984934
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,8 +839,8 @@ GameObject:
   - component: {fileID: 1451863553}
   - component: {fileID: 1451863552}
   m_Layer: 5
-  m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_Name: Total Love Points
+  m_TagString: '[UI]TotalLovePoints'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -983,8 +996,8 @@ GameObject:
   - component: {fileID: 1493679254}
   - component: {fileID: 1493679253}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
-  m_TagString: Untagged
+  m_Name: Points Per Second
+  m_TagString: '[UI]PointsPerSecond'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1027,7 +1040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[x] PPS (Pets per second)'
+  m_text: '[x] PP/S (Pets per second)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0c3fd157eac3ef74ca25830dce461e64, type: 2}
   m_sharedMaterial: {fileID: 4625193188385207290, guid: 0c3fd157eac3ef74ca25830dce461e64,
@@ -1056,7 +1069,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 38.9
+  m_fontSize: 37.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1097,10 +1110,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1493679253}
-    characterCount: 25
+    characterCount: 26
     spriteCount: 0
     spaceCount: 4
-    wordCount: 5
+    wordCount: 6
     linkCount: 0
     lineCount: 1
     pageCount: 1
