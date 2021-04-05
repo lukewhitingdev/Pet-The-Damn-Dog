@@ -6,26 +6,24 @@ public class GameMaster : MonoBehaviour
 {
 
     // Singleton.
-    static GameMaster instance;
-    static public GameMaster getInstance()
-    {
-        if (instance == null)
-            instance = new GameMaster();
-
-        return instance;
-    }
-
-    private PointsController pointsController;
-    private PetPointController petPointController;
+    static private PointsController pointsController;
+    static private PetPointController petPointController;
+    static public GameMaster instance;
 
     private void Awake()
     {
-        pointsController = FindObjectOfType<PointsController>();
-        petPointController = FindObjectOfType<PetPointController>();
+        if (instance == null)
+            instance = this;
+
+        if (pointsController == null)
+            pointsController = FindObjectOfType<PointsController>();
+
+        if (petPointController == null)
+            petPointController = FindObjectOfType<PetPointController>();
     }
 
     // Clicking.
-    float clickPower = 1.0f;
+    private float clickPower = 1.0f;
     public void click()
     {
         pointsController.addPointsToTotal(clickPower);

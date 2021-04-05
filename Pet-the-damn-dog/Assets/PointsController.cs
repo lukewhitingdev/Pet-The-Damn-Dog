@@ -37,6 +37,7 @@ public class PointsController : MonoBehaviour
     }
 
     public void addPointsToTotal(float value) { totalPoints += value; }
+    public void minusPointsFromTotal(float value) { totalPoints -= value; }
     public float getTotalPoints() { return totalPoints; }
 
     public void addPointsPerSecond(float value) { pps += value; }
