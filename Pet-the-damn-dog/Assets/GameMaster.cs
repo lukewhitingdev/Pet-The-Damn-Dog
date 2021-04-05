@@ -22,9 +22,9 @@ public class GameMaster : MonoBehaviour
     {
         pointsController = FindObjectOfType<PointsController>();
         petPointController = FindObjectOfType<PetPointController>();
-
     }
 
+    // Clicking.
     float clickPower = 1.0f;
     public void click()
     {

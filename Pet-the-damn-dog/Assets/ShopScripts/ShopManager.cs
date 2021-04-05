@@ -100,7 +100,7 @@ public class ShopManager : MonoBehaviour
 
             ShopItem shopItem = upgrade.GetComponent<ShopItem>();
 
-            GameObject UIObject;
+            GameObject UIObject, ItemObject;
 
             switch (upgrade.tag)
             {
@@ -109,6 +109,10 @@ public class ShopManager : MonoBehaviour
                     UIObject = Instantiate(itemUIPrefab, contentObject.transform);
                     UIObject.GetComponentInChildren<TextMeshProUGUI>().text = upgrade.name;
                     UIObject.GetComponentInChildren<Button>().onClick.AddListener(shopItem.onPurchase);
+
+                    // Put the upgrade gameObject on the UI so that the start and update functions are ran.
+                    // Kinda messy but good for now :).
+                    ItemObject = Instantiate(upgrade, UIObject.transform);
 
                     contentHeight += itemUIHeight;
 
