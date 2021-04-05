@@ -107,7 +107,27 @@ public class ShopManager : MonoBehaviour
                 case "[ShopUI]Item":
                     // Create the item.
                     UIObject = Instantiate(itemUIPrefab, contentObject.transform);
-                    UIObject.GetComponentInChildren<TextMeshProUGUI>().text = upgrade.name;
+
+                    TextMeshProUGUI[] texts = GetComponentsInChildren<TextMeshProUGUI>();
+
+                    foreach (var text in texts)
+                    {
+                        switch (text.gameObject.name)
+                        {
+                            case "Price":
+                                text.text = shopItem.price.ToString() + " Love Points";
+                                break;
+
+                            case "Name":
+                                text.text = upgrade.name;
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+
+
                     UIObject.GetComponentInChildren<Button>().onClick.AddListener(shopItem.onPurchase);
 
                     // Put the upgrade gameObject on the UI so that the start and update functions are ran.
