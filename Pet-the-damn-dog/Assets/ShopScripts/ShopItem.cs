@@ -19,7 +19,7 @@ public abstract class ShopItem : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log((pointsController.getTotalPoints() > price));
+        //Debug.Log((pointsController.getTotalPoints() > price));
         if (pointsController.getTotalPoints() > price)
         {
             purchaseButton.interactable = true;

@@ -108,7 +108,7 @@ public class ShopManager : MonoBehaviour
                     // Create the item.
                     UIObject = Instantiate(itemUIPrefab, contentObject.transform);
 
-                    TextMeshProUGUI[] texts = GetComponentsInChildren<TextMeshProUGUI>();
+                    TextMeshProUGUI[] texts = UIObject.GetComponentsInChildren<TextMeshProUGUI>();
 
                     foreach (var text in texts)
                     {

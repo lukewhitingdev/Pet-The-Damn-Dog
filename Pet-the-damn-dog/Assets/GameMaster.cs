@@ -32,4 +32,7 @@ public class GameMaster : MonoBehaviour
     public void addClickPower(float value) { clickPower += value; }
     public float getClickPower() { return clickPower; }
 
+    // Pets Per Second.
+    public void addPetsPerSecond(float value) { pointsController.addPointsPerSecond(value); }
+
 }
