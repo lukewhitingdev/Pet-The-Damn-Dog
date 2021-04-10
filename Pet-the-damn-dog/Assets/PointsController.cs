@@ -11,6 +11,13 @@ public class PointsController : MonoBehaviour
     float totalPoints;
     float pps;
 
+    private void Awake()
+    {
+        // Setup stuff we want to be saved.
+        SaveManager.addData<float>("playerTotalPoints", totalPoints);
+        SaveManager.addData<float>("playerTotalPPS", pps);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +29,8 @@ public class PointsController : MonoBehaviour
     private void Update()
     {
         // UI Update.
-        TotalLovePointsText.text = totalPoints.ToString() + " Love Points";
-        PPSText.text = pps.ToString() + " PP/S (Pets per second)";
+        TotalLovePointsText.text = totalPoints.ToString("0.00") + " Love Points";
+        PPSText.text = pps.ToString("0.0") + " PP/S (Pets per second)";
     }
 
     IEnumerator CalculatePointsPerSecond()
@@ -36,10 +43,10 @@ public class PointsController : MonoBehaviour
         }
     }
 
-    public void addPointsToTotal(float value) { totalPoints += value; }
-    public void minusPointsFromTotal(float value) { totalPoints -= value; }
+    public void addPointsToTotal(float value) { totalPoints += value; SaveManager.updateData<float>("playerTotalPoints", totalPoints); }
+    public void minusPointsFromTotal(float value) { totalPoints -= value; SaveManager.updateData<float>("playerTotalPoints", totalPoints); }
     public float getTotalPoints() { return totalPoints; }
 
-    public void addPointsPerSecond(float value) { pps += value; }
+    public void addPointsPerSecond(float value) { pps += value; SaveManager.updateData<float>("playerTotalPPS", pps); }
     public float getPointsPerSecond() { return pps; }
 }

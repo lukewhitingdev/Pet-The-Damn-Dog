@@ -38,7 +38,8 @@ public abstract class ShopItem : MonoBehaviour
             switch (text.gameObject.name)
             {
                 case "Price":
-                    text.text = price + " Love Points";
+                    if(price != -1)
+                        text.text = price + " Love Points";
                     break;
 
                 default:

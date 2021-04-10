@@ -20,6 +20,14 @@ public class GameMaster : MonoBehaviour
 
         if (petPointController == null)
             petPointController = FindObjectOfType<PetPointController>();
+
+        SaveManager.Load();
+    }
+
+    private void Start()
+    {
+        // Setup stuff we want to be saved.
+        SaveManager.addData<float>("playerClickPower", clickPower);
     }
 
     // Clicking.
@@ -29,10 +37,17 @@ public class GameMaster : MonoBehaviour
         pointsController.addPointsToTotal(clickPower);
         petPointController.spawnPetPoint(clickPower);
     }
-    public void addClickPower(float value) { clickPower += value; }
+    public void addClickPower(float value) { clickPower += value; SaveManager.updateData<float>("playerClickPower", clickPower); }
     public float getClickPower() { return clickPower; }
 
     // Pets Per Second.
     public void addPetsPerSecond(float value) { pointsController.addPointsPerSecond(value); }
+
+
+    private void OnApplicationQuit()
+    {
+        // Save our stuff.
+        SaveManager.Save();
+    }
 
 }
