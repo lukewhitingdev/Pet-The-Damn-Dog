@@ -16,15 +16,15 @@ public class LingeringLove : ShopItem
     public override void onPurchase()
     {
         // For some reason have to grab these since i think because this is called from the onClick of a button its within its own scope.
-        PettingTechUpgrade pettingTech = FindObjectOfType<PettingTechUpgrade>();
+        LingeringLove LingeringLove = FindObjectOfType<LingeringLove>();
         PointsController pointsController = FindObjectOfType<PointsController>();
 
-        Debug.Log("Lingering Love Upgrade Purchased! Price: " + pettingTech.price.ToString());
+        Debug.Log("Lingering Love Upgrade Purchased! Price: " + LingeringLove.price.ToString());
 
         GameMaster.instance.addPetsPerSecond(1.0f);
 
-        pointsController.minusPointsFromTotal(pettingTech.price);
+        pointsController.minusPointsFromTotal(LingeringLove.price);
 
-        pettingTech.price += priceIncrement;
+        LingeringLove.price += priceIncrement;
     }
 }

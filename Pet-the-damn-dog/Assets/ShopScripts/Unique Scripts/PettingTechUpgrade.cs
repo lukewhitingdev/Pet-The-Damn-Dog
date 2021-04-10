@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class PettingTechUpgrade : ShopItem
 {
 
     private float priceIncrement = 10.0f;
+
 
     private void Awake()
     {

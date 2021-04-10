@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 // Virtual class for allowing each shopItem to be triggered whilst having different function bodies depending on what they wanna do.
@@ -10,11 +11,14 @@ public abstract class ShopItem : MonoBehaviour
     private PointsController pointsController;
     public float price = 1.0f;
 
+    private TextMeshProUGUI[] texts;
+
     private void Start()
     {
         purchaseButton = this.gameObject.transform.parent.gameObject.GetComponentInChildren<Button>();
         purchaseButton.interactable = false;
         pointsController = FindObjectOfType<PointsController>();
+        texts = this.transform.parent.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
     }
 
     private void Update()
@@ -28,5 +32,18 @@ public abstract class ShopItem : MonoBehaviour
         {
             purchaseButton.interactable = false;
         };
+
+        foreach (var text in texts)
+        {
+            switch (text.gameObject.name)
+            {
+                case "Price":
+                    text.text = price + " Love Points";
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 }
