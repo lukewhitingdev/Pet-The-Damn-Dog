@@ -11,13 +11,6 @@ public class PointsController : MonoBehaviour
     float totalPoints;
     float pps;
 
-    private void Awake()
-    {
-        // Setup stuff we want to be saved.
-        SaveManager.addData<float>("playerTotalPoints", totalPoints);
-        SaveManager.addData<float>("playerTotalPPS", pps);
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -57,5 +50,9 @@ public class PointsController : MonoBehaviour
 
         if (SaveManager.getData<float>("playerTotalPPS") != null)
             pps = (float)SaveManager.getData<float>("playerTotalPPS");
+
+        // Setup stuff we want to be saved.
+        SaveManager.addData<float>("playerTotalPoints", totalPoints);
+        SaveManager.addData<float>("playerTotalPPS", pps);
     }
 }

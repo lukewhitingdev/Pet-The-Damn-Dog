@@ -28,7 +28,7 @@ public static class SaveManager
         // Check if the item already exists.
         foreach (var item in saveDataList)
         {
-            if(item.identifier == id)
+            if(item.identifier == id && item.saveData.GetType() == typeof(T))
             {
                 throw new Exception("Tried to add data to saveData list with a identifier(" + id + ") that already exists!");
             }
@@ -45,7 +45,7 @@ public static class SaveManager
         bool exists = false;
         for (int i = 0; i < saveDataList.Count; i++)
         {
-            if (saveDataList[i].identifier == id)
+            if (saveDataList[i].identifier == id && saveDataList[i].saveData.GetType() == typeof(T))
             {
                 exists = true;
                 saveDataList[i] = new Data(id, typeof(T), overwriteData);
@@ -62,7 +62,7 @@ public static class SaveManager
     public static object getData<T>(string id)
     {
         //Debug.Log("Getting data | ID: " + id);
-        return loadedDataList.Find(x => x.identifier == id).saveData;
+        return loadedDataList.Find(x => x.identifier == id && x.saveData.GetType() == typeof(T)).saveData;
     }
 
     public static void Save()
