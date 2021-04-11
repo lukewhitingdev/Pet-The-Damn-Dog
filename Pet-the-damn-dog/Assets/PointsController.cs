@@ -49,4 +49,13 @@ public class PointsController : MonoBehaviour
 
     public void addPointsPerSecond(float value) { pps += value; SaveManager.updateData<float>("playerTotalPPS", pps); }
     public float getPointsPerSecond() { return pps; }
+
+    public void LoadData()
+    {
+        if(SaveManager.getData<float>("playerTotalPoints") != null)
+            totalPoints = (float)SaveManager.getData<float>("playerTotalPoints");
+
+        if (SaveManager.getData<float>("playerTotalPPS") != null)
+            pps = (float)SaveManager.getData<float>("playerTotalPPS");
+    }
 }

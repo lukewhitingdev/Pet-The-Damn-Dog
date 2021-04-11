@@ -34,7 +34,7 @@ public static class SaveManager
             }
         }
 
-        Debug.LogFormat("Added data! | id: {0}, data: {1}", id, data);
+        //Debug.LogFormat("Added data! | id: {0}, data: {1}", id, data);
 
         Data saveData = new Data(id, typeof(T), data);
         saveDataList.Add(saveData);
@@ -59,6 +59,12 @@ public static class SaveManager
         }
     }
 
+    public static object getData<T>(string id)
+    {
+        //Debug.Log("Getting data | ID: " + id);
+        return loadedDataList.Find(x => x.identifier == id).saveData;
+    }
+
     public static void Save()
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -78,10 +84,9 @@ public static class SaveManager
         stream.Close();
     }
 
-    public static void Load()
+    public static bool Load()
     {
         string path = Application.persistentDataPath + "/playerData.ptdd";
-
 
         if (File.Exists(path))
         {
@@ -96,6 +101,8 @@ public static class SaveManager
             {
                 Debug.LogFormat("Loading data | id: {0}, data: {1} |", item.identifier, item.saveData);
             }
+
+            return true;
         }
         else
         {

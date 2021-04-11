@@ -21,11 +21,17 @@ public class GameMaster : MonoBehaviour
         if (petPointController == null)
             petPointController = FindObjectOfType<PetPointController>();
 
-        SaveManager.Load();
+        if (SaveManager.Load())
+        {
+            pointsController.LoadData();
+        };
     }
 
     private void Start()
     {
+        // Setup stuff we want to load.
+        //clickPower = (float)SaveManager.getData<float>("playerClickPower");
+
         // Setup stuff we want to be saved.
         SaveManager.addData<float>("playerClickPower", clickPower);
     }
