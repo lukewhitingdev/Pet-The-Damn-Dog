@@ -65,6 +65,11 @@ public static class SaveManager
         return loadedDataList.Find(x => x.identifier == id && x.saveData.GetType() == typeof(T)).saveData;
     }
 
+    public static bool checkIfDataExists<T>(string id)
+    {
+        return loadedDataList.Exists(x => x.identifier == id && x.saveData.GetType() == typeof(T));
+    }
+
     public static void Save()
     {
         BinaryFormatter formatter = new BinaryFormatter();

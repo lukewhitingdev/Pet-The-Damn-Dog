@@ -36,11 +36,28 @@ public class PointsController : MonoBehaviour
         }
     }
 
-    public void addPointsToTotal(float value) { totalPoints += value; SaveManager.updateData<float>("playerTotalPoints", totalPoints); }
-    public void minusPointsFromTotal(float value) { totalPoints -= value; SaveManager.updateData<float>("playerTotalPoints", totalPoints); }
+    public void addPointsToTotal(float value) { 
+        totalPoints += value; 
+        if(SaveManager.checkIfDataExists<float>("playerTotalPoints")){
+            SaveManager.updateData<float>("playerTotalPoints", totalPoints);
+        }
+    }
+    public void minusPointsFromTotal(float value) { 
+        totalPoints -= value;
+        if (SaveManager.checkIfDataExists<float>("playerTotalPoints"))
+        {
+            SaveManager.updateData<float>("playerTotalPoints", totalPoints);
+        }
+    }
     public float getTotalPoints() { return totalPoints; }
 
-    public void addPointsPerSecond(float value) { pps += value; SaveManager.updateData<float>("playerTotalPPS", pps); }
+    public void addPointsPerSecond(float value) { 
+        pps += value;
+        if (SaveManager.checkIfDataExists<float>("playerTotalPPS"))
+        {
+            SaveManager.updateData<float>("playerTotalPPS", pps);
+        }
+    }
     public float getPointsPerSecond() { return pps; }
 
     public void LoadData()

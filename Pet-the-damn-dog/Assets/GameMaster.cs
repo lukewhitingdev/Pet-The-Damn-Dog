@@ -23,17 +23,38 @@ public class GameMaster : MonoBehaviour
 
         if (SaveManager.Load())
         {
+
+            // Setup stuff we want to load.
+            if (SaveManager.checkIfDataExists<float>("playerClickPower"))
+            {
+                clickPower = (float)SaveManager.getData<float>("playerClickPower");
+            }
+
+            System.DateTime loadedDateTime = System.DateTime.Now;
+
+            if (SaveManager.checkIfDataExists<System.DateTime>("dateTime"))
+            {
+                Debug.Log("Loaded from idle state");
+                loadedDateTime = (System.DateTime)SaveManager.getData<System.DateTime>("dateTime");
+            }
+
+            dateTimeDiff = (System.DateTime.Now.AddDays(5) - loadedDateTime).TotalSeconds;
+
+            pointsController.addPointsToTotal(pointsController.getPointsPerSecond() * (float)dateTimeDiff);
+
+            Debug.Log("Time Diff: " + dateTimeDiff);
+
             pointsController.LoadData();
         };
     }
 
+    private double dateTimeDiff = 0;
+
     private void Start()
     {
-        // Setup stuff we want to load.
-        //clickPower = (float)SaveManager.getData<float>("playerClickPower");
-
         // Setup stuff we want to be saved.
         SaveManager.addData<float>("playerClickPower", clickPower);
+        SaveManager.addData<System.DateTime>("dateTime", System.DateTime.Now);
     }
 
     // Clicking.
