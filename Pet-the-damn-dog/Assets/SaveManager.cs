@@ -26,12 +26,10 @@ public static class SaveManager
     public static void addData<T>(string id, object data)
     {
         // Check if the item already exists.
-        foreach (var item in saveDataList)
+        if(loadedDataList.Exists(x => x.identifier == id && x.saveData.GetType() == typeof(T)))
         {
-            if(item.identifier == id && item.saveData.GetType() == typeof(T))
-            {
-                throw new Exception("Tried to add data to saveData list with a identifier(" + id + ") that already exists!");
-            }
+            Debug.LogError("Tried to add data for id that already exists! Please dont do this");
+            return;
         }
 
         //Debug.LogFormat("Added data! | id: {0}, data: {1}", id, data);
@@ -55,7 +53,8 @@ public static class SaveManager
 
         if (!exists)
         {
-            throw new Exception("Tried to update data in saveData list with a identifier(" + id + ") that doesnt exists!");
+            Debug.LogError("Tried to update data for id that doesnt exist! Please dont do this.");
+            return;
         }
     }
 
@@ -106,6 +105,8 @@ public static class SaveManager
             {
                 Debug.LogFormat("Loading data | id: {0}, data: {1} |", item.identifier, item.saveData);
             }
+
+            saveDataList = loadedDataList;
 
             return true;
         }

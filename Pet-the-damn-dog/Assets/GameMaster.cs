@@ -10,6 +10,8 @@ public class GameMaster : MonoBehaviour
     static private PetPointController petPointController;
     static public GameMaster instance;
 
+    private double dateTimeDiff = 0;
+
     private void Awake()
     {
         if (instance == null)
@@ -23,6 +25,14 @@ public class GameMaster : MonoBehaviour
 
         if (SaveManager.Load())
         {
+
+            // Setup stuff we want to be saved.
+            if (SaveManager.checkIfDataExists<float>("playerClickPower"))
+                SaveManager.addData<float>("playerClickPower", clickPower);
+
+            if (SaveManager.checkIfDataExists<System.DateTime>("dateTime"))
+                SaveManager.addData<System.DateTime>("dateTime", System.DateTime.Now);
+
 
             // Setup stuff we want to load.
             if (SaveManager.checkIfDataExists<float>("playerClickPower"))
@@ -38,23 +48,16 @@ public class GameMaster : MonoBehaviour
                 loadedDateTime = (System.DateTime)SaveManager.getData<System.DateTime>("dateTime");
             }
 
-            dateTimeDiff = (System.DateTime.Now.AddDays(5) - loadedDateTime).TotalSeconds;
-
-            pointsController.addPointsToTotal(pointsController.getPointsPerSecond() * (float)dateTimeDiff);
-
-            Debug.Log("Time Diff: " + dateTimeDiff);
+            dateTimeDiff = (System.DateTime.Now - loadedDateTime).TotalSeconds;
+            
+            if(dateTimeDiff > 0)
+            {
+                if (SaveManager.checkIfDataExists<float>("playerTotalPPS"))
+                    pointsController.addPointsToTotal((float)SaveManager.getData<float>("playerTotalPPS") * (float)dateTimeDiff);
+            }
 
             pointsController.LoadData();
         };
-    }
-
-    private double dateTimeDiff = 0;
-
-    private void Start()
-    {
-        // Setup stuff we want to be saved.
-        SaveManager.addData<float>("playerClickPower", clickPower);
-        SaveManager.addData<System.DateTime>("dateTime", System.DateTime.Now);
     }
 
     // Clicking.
@@ -64,7 +67,11 @@ public class GameMaster : MonoBehaviour
         pointsController.addPointsToTotal(clickPower);
         petPointController.spawnPetPoint(clickPower);
     }
-    public void addClickPower(float value) { clickPower += value; SaveManager.updateData<float>("playerClickPower", clickPower); }
+    public void addClickPower(float value) {
+        clickPower += value;
+        if (SaveManager.checkIfDataExists<float>("playerClickPower"))
+            SaveManager.updateData<float>("playerClickPower", clickPower);
+    }
     public float getClickPower() { return clickPower; }
 
     // Pets Per Second.
