@@ -22,6 +22,9 @@ I used generic type parameters for multiple reasons:
     
     // Returns the savedData within the loadedData list.
     public static object getData<T>(string id);
+    
+    // Returns the requested data from the Type (T) and identifier (id)
+    public static object getData<T>(string id)
 ```
 
 
