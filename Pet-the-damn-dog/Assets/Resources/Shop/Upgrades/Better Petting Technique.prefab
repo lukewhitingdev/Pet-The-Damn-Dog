@@ -48,3 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56753a67a87d92458f83bfd2943d289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeName: Better Petting Technique
+  price: 1
+  level: 1

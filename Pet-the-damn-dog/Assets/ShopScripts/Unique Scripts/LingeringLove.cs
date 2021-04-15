@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
+
+[Serializable]
 public class LingeringLove : ShopItem
 {
 
@@ -10,7 +13,13 @@ public class LingeringLove : ShopItem
 
     private void Awake()
     {
+        upgradeName = "Lingering Love";
         price = 10.0f;
+        level = 1;
+
+        Debug.Log("-- " + this.gameObject.name);
+
+        Load();
     }
 
     public override void onPurchase()
@@ -25,6 +34,7 @@ public class LingeringLove : ShopItem
 
         pointsController.minusPointsFromTotal(LingeringLove.price);
 
-        LingeringLove.price += priceIncrement;
+        base.BaseOnPurchase();
+        base.UpdateData();
     }
 }

@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,31 @@ public abstract class ShopItem : MonoBehaviour
 
     private Button purchaseButton;
     private PointsController pointsController;
+    public string upgradeName = "[YOU HAVE NOT SET THE UPGRADE NAME. SET IT]";
     public float price = 1.0f;
+    public int level = 1;
+    protected GameObject parentObject;                                // Used so that the script knows which name to use even when not parented.
 
     private TextMeshProUGUI[] texts;
+
+    protected void Load()
+    {
+        upgradeName = this.name;
+        if (upgradeName.Contains("(Clone)"))
+        {
+            upgradeName = upgradeName.Substring(0, upgradeName.IndexOf("(Clone)"));
+        }
+        Debug.LogFormat("Loading ShopItem {0}", upgradeName);
+        price = (float)SaveManager.getOrAddData<float>(upgradeName + "-price", price);
+        level = (int)SaveManager.getOrAddData<int>(upgradeName + "-level", level);
+    }
+
+    protected void UpdateData()
+    {
+        upgradeName = this.name;
+        SaveManager.updateData<float>(upgradeName + "-price", price);
+        SaveManager.updateData<int>(upgradeName + "-level", level);
+    }
 
     private void Start()
     {
@@ -19,6 +42,10 @@ public abstract class ShopItem : MonoBehaviour
         purchaseButton.interactable = false;
         pointsController = FindObjectOfType<PointsController>();
         texts = this.transform.parent.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+
+
+        Debug.Log("-- " + price + " || " + level);
+        price *= level;
     }
 
     private void Update()
@@ -46,5 +73,11 @@ public abstract class ShopItem : MonoBehaviour
                     break;
             }
         }
+    }
+
+    protected void BaseOnPurchase()
+    {
+        level++;
+        price *= level;
     }
 }

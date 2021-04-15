@@ -23,19 +23,20 @@ public static class SaveManager
     private static List<Data> saveDataList = new List<Data>();
     private static List<Data> loadedDataList = new List<Data>();
 
-    public static void addData<T>(string id, object data)
+    public static object addData<T>(string id, object data)
     {
         // Check if the item already exists.
         if(loadedDataList.Exists(x => x.identifier == id && x.saveData.GetType() == typeof(T)))
         {
             Debug.LogError("Tried to add data for id that already exists! Please dont do this");
-            return;
+            return null;
         }
 
         //Debug.LogFormat("Added data! | id: {0}, data: {1}", id, data);
 
         Data saveData = new Data(id, typeof(T), data);
         saveDataList.Add(saveData);
+        return saveData.saveData;
     }
 
     public static void updateData<T>(string id, object overwriteData)
@@ -48,20 +49,32 @@ public static class SaveManager
                 exists = true;
                 saveDataList[i] = new Data(id, typeof(T), overwriteData);
                 Debug.LogFormat("Updated data! | id: {0}, data: {1}", id, saveDataList[i].saveData);
+                break;
             }
         }
 
         if (!exists)
         {
-            Debug.LogError("Tried to update data for id that doesnt exist! Please dont do this.");
+            Debug.LogErrorFormat("Tried to update data for id ({0}) that doesnt exist! Please dont do this.", id);
             return;
         }
     }
 
     public static object getData<T>(string id)
     {
-        //Debug.Log("Getting data | ID: " + id);
         return loadedDataList.Find(x => x.identifier == id && x.saveData.GetType() == typeof(T)).saveData;
+    }
+
+    public static object getOrAddData<T>(string id, object potentialData)
+    {
+        if (checkIfDataExists<T>(id))
+        {
+            return getData<T>(id);
+        }
+        else
+        {
+            return addData<T>(id, potentialData);
+        }
     }
 
     public static bool checkIfDataExists<T>(string id)
