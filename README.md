@@ -24,7 +24,7 @@ I used generic type parameters for multiple reasons:
     public static object getData<T>(string id);
     
     // Returns the requested data from the Type (T) and identifier (id)
-    public static object getData<T>(string id)
+    public static object getData<T>(string id);
 ```
 
 
