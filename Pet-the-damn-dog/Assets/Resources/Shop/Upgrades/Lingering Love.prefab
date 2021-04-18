@@ -48,4 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf251ba253adaa4780b62688cb4f3fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upgradeName: Lingering Love
   price: 10
+  level: 1

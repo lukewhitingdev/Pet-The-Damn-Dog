@@ -14,7 +14,7 @@ public class LingeringLove : ShopItem
     private void Awake()
     {
         upgradeName = "Lingering Love";
-        price = 10.0f;
+        price = 1;
         level = 1;
 
         Debug.Log("-- " + this.gameObject.name);
@@ -34,7 +34,9 @@ public class LingeringLove : ShopItem
 
         pointsController.minusPointsFromTotal(LingeringLove.price);
 
-        base.BaseOnPurchase();
+        //LingeringLove.level++;
+        //LingeringLove.price *= LingeringLove.level;
+
         base.UpdateData();
     }
 }

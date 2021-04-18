@@ -6,7 +6,7 @@ using UnityEngine.UI;
 // Virtual class for allowing each shopItem to be triggered whilst having different function bodies depending on what they wanna do.
 public abstract class ShopItem : MonoBehaviour
 {
-    public abstract void onPurchase();          // Virtual function that is overwritten by the specific shop item scripts.
+    public abstract void onPurchase();                                 // Virtual function that is overwritten by the specific shop item scripts.
 
     private Button purchaseButton;
     private PointsController pointsController;
@@ -43,7 +43,6 @@ public abstract class ShopItem : MonoBehaviour
         pointsController = FindObjectOfType<PointsController>();
         texts = this.transform.parent.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 
-
         Debug.Log("-- " + price + " || " + level);
         price *= level;
     }
@@ -60,12 +59,13 @@ public abstract class ShopItem : MonoBehaviour
             purchaseButton.interactable = false;
         };
 
+        Debug.Log("Update: " + this.name + " Price: " + price);
+
         foreach (var text in texts)
         {
             switch (text.gameObject.name)
             {
                 case "Price":
-                    if(price != -1)
                         text.text = price + " Love Points";
                     break;
 
@@ -73,11 +73,5 @@ public abstract class ShopItem : MonoBehaviour
                     break;
             }
         }
-    }
-
-    protected void BaseOnPurchase()
-    {
-        level++;
-        price *= level;
     }
 }

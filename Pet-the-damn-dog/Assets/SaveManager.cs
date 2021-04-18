@@ -28,7 +28,7 @@ public static class SaveManager
         // Check if the item already exists.
         if(loadedDataList.Exists(x => x.identifier == id && x.saveData.GetType() == typeof(T)))
         {
-            Debug.LogError("Tried to add data for id that already exists! Please dont do this");
+            Debug.LogError("[AddData] Tried to add data for id that already exists! Please dont do this");
             return null;
         }
 
@@ -36,6 +36,9 @@ public static class SaveManager
 
         Data saveData = new Data(id, typeof(T), data);
         saveDataList.Add(saveData);
+
+        Debug.LogFormat("[AddData] Added data! | id: {0}, data: {1}", id, data);
+
         return saveData.saveData;
     }
 
@@ -48,20 +51,21 @@ public static class SaveManager
             {
                 exists = true;
                 saveDataList[i] = new Data(id, typeof(T), overwriteData);
-                Debug.LogFormat("Updated data! | id: {0}, data: {1}", id, saveDataList[i].saveData);
+                Debug.LogFormat("[UpdateData] Updated data! | id: {0}, data: {1}", id, saveDataList[i].saveData);
                 break;
             }
         }
 
         if (!exists)
         {
-            Debug.LogErrorFormat("Tried to update data for id ({0}) that doesnt exist! Please dont do this.", id);
+            Debug.LogErrorFormat("[UpdateData] Tried to update data for id ({0}) that doesnt exist! Please dont do this.", id);
             return;
         }
     }
 
     public static object getData<T>(string id)
     {
+        Debug.LogFormat("[GetData] Got data! | id: {0}, data: {1}", id, loadedDataList.Find(x => x.identifier == id && x.saveData.GetType() == typeof(T)).saveData);
         return loadedDataList.Find(x => x.identifier == id && x.saveData.GetType() == typeof(T)).saveData;
     }
 
@@ -91,11 +95,11 @@ public static class SaveManager
 
         formatter.Serialize(stream, saveDataList);
 
-        Debug.Log("Saving!");
+        Debug.Log("[SaveData] Saving!");
 
         foreach (var item in saveDataList)
         {
-            Debug.LogFormat("Saving data | id: {0}, data: {1} |", item.identifier, item.saveData);
+            Debug.LogFormat("[SaveData] Saving data | id: {0}, data: {1} |", item.identifier, item.saveData);
         }
 
         stream.Close();
@@ -112,11 +116,11 @@ public static class SaveManager
 
             loadedDataList = formatter.Deserialize(stream) as List<Data>;
 
-            Debug.Log("Loading!");
+            Debug.Log("[LoadData] Loading!");
 
             foreach (var item in loadedDataList)
             {
-                Debug.LogFormat("Loading data | id: {0}, data: {1} |", item.identifier, item.saveData);
+                Debug.LogFormat("[LoadData] Loading data | id: {0}, data: {1} |", item.identifier, item.saveData);
             }
 
             saveDataList = loadedDataList;
@@ -125,7 +129,7 @@ public static class SaveManager
         }
         else
         {
-            throw new Exception("Save file not found when loading! Path: " + path);
+            throw new Exception("[LoadData] Save file not found when loading! Path: " + path);
         }
     }
 }
