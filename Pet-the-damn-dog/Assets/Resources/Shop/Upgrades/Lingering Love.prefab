@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9032280735463305909}
-  - component: {fileID: -2059062018938341429}
+  - component: {fileID: 8617809246610159387}
   m_Layer: 5
   m_Name: Lingering Love
   m_TagString: '[ShopUI]Item'
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-2059062018938341429
+--- !u!114 &8617809246610159387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,9 +45,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9032280735463305908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf251ba253adaa4780b62688cb4f3fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 6dffd32febe6e714a88b4f622f6a5ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeName: Lingering Love
   price: 10
-  level: 1
+  totalPoints: 0
+  totalPPS: 1

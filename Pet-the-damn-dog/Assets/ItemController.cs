@@ -14,6 +14,8 @@ public class ItemController : MonoBehaviour
 
     void Awake()
     {
+
+        // Grab references to all the different texts
         TextMeshProUGUI[] texts = GetComponentsInChildren<TextMeshProUGUI>();
 
         foreach (var text in texts)
@@ -45,6 +47,9 @@ public class ItemController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("--" + shopItem.price.ToString());
+        itemName.text = shopItem.upgradeName;
+        itemPrice.text = shopItem.price.ToString() + " Love Points";
+
+        purchaseButton.interactable = !(shopItem.price > pointsController.getTotalPoints());
     }
 }

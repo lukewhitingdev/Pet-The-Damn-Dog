@@ -4,18 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Virtual class for allowing each shopItem to be triggered whilst having different function bodies depending on what they wanna do.
-public abstract class ShopItem : MonoBehaviour
+public class ShopItem : MonoBehaviour
 {
-    public abstract void onPurchase();                                 // Virtual function that is overwritten by the specific shop item scripts.
-
-    private Button purchaseButton;
     private PointsController pointsController;
-    public string upgradeName = "[YOU HAVE NOT SET THE UPGRADE NAME. SET IT]";
-    public float price = 1.0f;
-    public int level = 1;
-    protected GameObject parentObject;                                // Used so that the script knows which name to use even when not parented.
 
-    private TextMeshProUGUI[] texts;
+    [HideInInspector]
+    public string upgradeName = "N/A";
+
+    [Header("Upgrade Costs")]
+    public float price = 1.0f;
+
+    [HideInInspector]
+    public int level = 1;
+
+    [Header("Upgrade values")]
+    public float totalPoints;
+    public float totalPPS;
+
+    private void Start()
+    {
+        upgradeName = this.gameObject.name;
+        upgradeName = upgradeName.Substring(0, upgradeName.IndexOf("(Clone)"));
+    }
 
     protected void Load()
     {
@@ -36,42 +46,19 @@ public abstract class ShopItem : MonoBehaviour
         SaveManager.updateData<int>(upgradeName + "-level", level);
     }
 
-    private void Start()
+    public void onPurchase(string objectName)
     {
-        purchaseButton = this.gameObject.transform.parent.gameObject.GetComponentInChildren<Button>();
-        purchaseButton.interactable = false;
+        // 
         pointsController = FindObjectOfType<PointsController>();
-        texts = this.transform.parent.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+        ShopItem item = GameObject.Find(objectName + "(Clone)").GetComponent<ShopItem>();
 
-        Debug.Log("-- " + price + " || " + level);
-        price *= level;
+        pointsController.addPointsPerSecond(item.totalPPS);
+        pointsController.addPointsToTotal(item.totalPoints);
+
+        pointsController.minusPointsFromTotal(item.price);
+
+        item.level++;
+        item.price *= item.level;
     }
 
-    private void Update()
-    {
-        //Debug.Log((pointsController.getTotalPoints() > price));
-        if (pointsController.getTotalPoints() > price)
-        {
-            purchaseButton.interactable = true;
-        }
-        else
-        {
-            purchaseButton.interactable = false;
-        };
-
-        Debug.Log("Update: " + this.name + " Price: " + price);
-
-        foreach (var text in texts)
-        {
-            switch (text.gameObject.name)
-            {
-                case "Price":
-                        text.text = price + " Love Points";
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    }
 }
