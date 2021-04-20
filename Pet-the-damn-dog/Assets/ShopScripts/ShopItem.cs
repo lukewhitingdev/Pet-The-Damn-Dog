@@ -41,6 +41,8 @@ public class ShopItem : MonoBehaviour
 
     protected void UpdateData()
     {
+
+        // TODO: Refactor upgradeData to be obselete.
         upgradeName = this.name;
         SaveManager.updateData<float>(upgradeName + "-price", price);
         SaveManager.updateData<int>(upgradeName + "-level", level);

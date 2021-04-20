@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PointsController : MonoBehaviour
 {
@@ -38,33 +39,36 @@ public class PointsController : MonoBehaviour
 
     public void addPointsToTotal(float value) { 
         totalPoints += value;
-        if(SaveManager.checkIfDataExists<float>("playerTotalPoints"))
-            SaveManager.updateData<float>("playerTotalPoints", totalPoints);
+        //if(SaveManager.checkIfDataExists<float>("playerTotalPoints"))
+        //    SaveManager.updateData<float>("playerTotalPoints", totalPoints);
     }
     public void minusPointsFromTotal(float value) { 
         totalPoints -= value;
-        if (SaveManager.checkIfDataExists<float>("playerTotalPoints"))
-            SaveManager.updateData<float>("playerTotalPoints", totalPoints);
+        //if (SaveManager.checkIfDataExists<float>("playerTotalPoints"))
+        //    SaveManager.updateData<float>("playerTotalPoints", totalPoints);
     }
     public float getTotalPoints() { return totalPoints; }
 
     public void addPointsPerSecond(float value) { 
         pps += value;
-        if (SaveManager.checkIfDataExists<float>("playerTotalPoints"))
-            SaveManager.updateData<float>("playerTotalPPS", pps);
+        //if (SaveManager.checkIfDataExists<float>("playerTotalPoints"))
+        //    SaveManager.updateData<float>("playerTotalPPS", pps);
     }
     public float getPointsPerSecond() { return pps; }
 
     public void LoadData()
     {
-        if(SaveManager.checkIfDataExists<float>("playerTotalPoints"))
+
+        object tpObject = Convert.ChangeType(totalPoints, typeof(object));
+
+        if (SaveManager.checkIfDataExists<float>("playerTotalPoints"))
             totalPoints = (float)SaveManager.getData<float>("playerTotalPoints");
         else
-            SaveManager.addData<float>("playerTotalPoints", totalPoints);
+            SaveManager.addDataNew<float>("playerTotalPoints", ref tpObject);
 
-        if (SaveManager.checkIfDataExists<float>("playerTotalPPS"))
-            pps = (float)SaveManager.getData<float>("playerTotalPPS");
-        else
-            SaveManager.addData<float>("playerTotalPPS", pps);
+        //if (SaveManager.checkIfDataExists<float>("playerTotalPPS"))
+        //    pps = (float)SaveManager.getData<float>("playerTotalPPS");
+        //else
+        //    SaveManager.addDataNew<float>("playerTotalPPS", ref pps);
     }
 }

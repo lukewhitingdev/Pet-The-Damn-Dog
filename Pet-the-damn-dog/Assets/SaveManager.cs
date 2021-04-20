@@ -9,7 +9,7 @@ public static class SaveManager
     [Serializable]
     struct Data
     {
-        public Data(string id, Type type, object data)
+        public Data(string id, Type type, ref object data)
         {
             identifier = id;
             dataType = type;
@@ -34,7 +34,26 @@ public static class SaveManager
 
         //Debug.LogFormat("Added data! | id: {0}, data: {1}", id, data);
 
-        Data saveData = new Data(id, typeof(T), data);
+        Data saveData = new Data(id, typeof(T), ref data);
+        saveDataList.Add(saveData);
+
+        Debug.LogFormat("[AddData] Added data! | id: {0}, data: {1}", id, data);
+
+        return saveData.saveData;
+    }
+
+    public static object addDataNew<T>(string id, ref object data)
+    {
+        // Check if the item already exists.
+        if (loadedDataList.Exists(x => x.identifier == id && x.saveData.GetType() == typeof(T)))
+        {
+            Debug.LogError("[AddData] Tried to add data for id that already exists! Please dont do this");
+            return null;
+        }
+
+        //Debug.LogFormat("Added data! | id: {0}, data: {1}", id, data);
+
+        Data saveData = new Data(id, typeof(T), ref data);
         saveDataList.Add(saveData);
 
         Debug.LogFormat("[AddData] Added data! | id: {0}, data: {1}", id, data);
@@ -50,7 +69,7 @@ public static class SaveManager
             if (saveDataList[i].identifier == id && saveDataList[i].saveData.GetType() == typeof(T))
             {
                 exists = true;
-                saveDataList[i] = new Data(id, typeof(T), overwriteData);
+                saveDataList[i] = new Data(id, typeof(T), ref overwriteData);
                 Debug.LogFormat("[UpdateData] Updated data! | id: {0}, data: {1}", id, saveDataList[i].saveData);
                 break;
             }
