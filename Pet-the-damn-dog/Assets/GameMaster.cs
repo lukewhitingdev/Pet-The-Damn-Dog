@@ -23,41 +23,41 @@ public class GameMaster : MonoBehaviour
         if (petPointController == null)
             petPointController = FindObjectOfType<PetPointController>();
 
-        if (SaveManager.Load())
+        SaveManager.Load();
+        SaveManager.onLoad.AddListener(Load);
+    }
+
+    private void Load()
+    {
+        // Setup stuff we want to be saved.
+        if (SaveManager.checkIfDataExists<float>("playerClickPower"))
+            SaveManager.addData<float>("playerClickPower", clickPower);
+
+        if (SaveManager.checkIfDataExists<System.DateTime>("dateTime"))
+            SaveManager.addData<System.DateTime>("dateTime", System.DateTime.Now);
+
+
+        // Setup stuff we want to load.
+        if (SaveManager.checkIfDataExists<float>("playerClickPower"))
         {
+            clickPower = (float)SaveManager.getData<float>("playerClickPower");
+        }
 
-            // Setup stuff we want to be saved.
-            if (SaveManager.checkIfDataExists<float>("playerClickPower"))
-                SaveManager.addData<float>("playerClickPower", clickPower);
+        System.DateTime loadedDateTime = System.DateTime.Now;
 
-            if (SaveManager.checkIfDataExists<System.DateTime>("dateTime"))
-                SaveManager.addData<System.DateTime>("dateTime", System.DateTime.Now);
+        if (SaveManager.checkIfDataExists<System.DateTime>("dateTime"))
+        {
+            Debug.Log("Loaded from idle state");
+            loadedDateTime = (System.DateTime)SaveManager.getData<System.DateTime>("dateTime");
+        }
 
+        dateTimeDiff = (System.DateTime.Now - loadedDateTime).TotalSeconds;
 
-            // Setup stuff we want to load.
-            if (SaveManager.checkIfDataExists<float>("playerClickPower"))
-            {
-                clickPower = (float)SaveManager.getData<float>("playerClickPower");
-            }
-
-            System.DateTime loadedDateTime = System.DateTime.Now;
-
-            if (SaveManager.checkIfDataExists<System.DateTime>("dateTime"))
-            {
-                Debug.Log("Loaded from idle state");
-                loadedDateTime = (System.DateTime)SaveManager.getData<System.DateTime>("dateTime");
-            }
-
-            dateTimeDiff = (System.DateTime.Now - loadedDateTime).TotalSeconds;
-            
-            if(dateTimeDiff > 0)
-            {
-                if (SaveManager.checkIfDataExists<float>("playerTotalPPS"))
-                    pointsController.addPointsToTotal((float)SaveManager.getData<float>("playerTotalPPS") * (float)dateTimeDiff);
-            }
-
-            pointsController.LoadData();
-        };
+        if (dateTimeDiff > 0)
+        {
+            if (SaveManager.checkIfDataExists<float>("playerTotalPPS"))
+                pointsController.addPointsToTotal((float)SaveManager.getData<float>("playerTotalPPS") * (float)dateTimeDiff);
+        }
     }
 
     // Clicking.
@@ -70,7 +70,7 @@ public class GameMaster : MonoBehaviour
     public void addClickPower(float value) {
         clickPower += value;
         if (SaveManager.checkIfDataExists<float>("playerClickPower"))
-            SaveManager.updateData<float>("playerClickPower", clickPower);
+            SaveManager.updateOrAddData<float>("playerClickPower", clickPower);
     }
     public float getClickPower() { return clickPower; }
 

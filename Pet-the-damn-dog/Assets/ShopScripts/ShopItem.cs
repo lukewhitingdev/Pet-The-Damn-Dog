@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Virtual class for allowing each shopItem to be triggered whilst having different function bodies depending on what they wanna do.
+
 public class ShopItem : MonoBehaviour
 {
     private PointsController pointsController;
@@ -25,9 +25,10 @@ public class ShopItem : MonoBehaviour
     {
         upgradeName = this.gameObject.name;
         upgradeName = upgradeName.Substring(0, upgradeName.IndexOf("(Clone)"));
+        Load();
     }
 
-    protected void Load()
+    public void Load()
     {
         upgradeName = this.name;
         if (upgradeName.Contains("(Clone)"))
@@ -39,18 +40,19 @@ public class ShopItem : MonoBehaviour
         level = (int)SaveManager.getOrAddData<int>(upgradeName + "-level", level);
     }
 
-    protected void UpdateData()
+    private void Update()
     {
-
-        // TODO: Refactor upgradeData to be obselete.
         upgradeName = this.name;
-        SaveManager.updateData<float>(upgradeName + "-price", price);
-        SaveManager.updateData<int>(upgradeName + "-level", level);
+        if (upgradeName.Contains("(Clone)"))
+        {
+            upgradeName = upgradeName.Substring(0, upgradeName.IndexOf("(Clone)"));
+        }
+        SaveManager.updateOrAddData<float>(upgradeName + "-price", price);
+        SaveManager.updateOrAddData<int>(upgradeName + "-level", level);
     }
 
     public void onPurchase(string objectName)
     {
-        // 
         pointsController = FindObjectOfType<PointsController>();
         ShopItem item = GameObject.Find(objectName + "(Clone)").GetComponent<ShopItem>();
 

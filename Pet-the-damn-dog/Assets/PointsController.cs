@@ -12,6 +12,11 @@ public class PointsController : MonoBehaviour
     float totalPoints;
     float pps;
 
+    private void Awake()
+    {
+        SaveManager.onLoad.AddListener(LoadData);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,36 +44,23 @@ public class PointsController : MonoBehaviour
 
     public void addPointsToTotal(float value) { 
         totalPoints += value;
-        //if(SaveManager.checkIfDataExists<float>("playerTotalPoints"))
-        //    SaveManager.updateData<float>("playerTotalPoints", totalPoints);
+        SaveManager.updateOrAddData<float>("playerTotalPoints", totalPoints);
     }
     public void minusPointsFromTotal(float value) { 
         totalPoints -= value;
-        //if (SaveManager.checkIfDataExists<float>("playerTotalPoints"))
-        //    SaveManager.updateData<float>("playerTotalPoints", totalPoints);
+        SaveManager.updateOrAddData<float>("playerTotalPoints", totalPoints);
     }
     public float getTotalPoints() { return totalPoints; }
 
     public void addPointsPerSecond(float value) { 
         pps += value;
-        //if (SaveManager.checkIfDataExists<float>("playerTotalPoints"))
-        //    SaveManager.updateData<float>("playerTotalPPS", pps);
+        SaveManager.updateOrAddData<float>("playerTotalPPS", pps);
     }
     public float getPointsPerSecond() { return pps; }
 
     public void LoadData()
     {
-
-        object tpObject = Convert.ChangeType(totalPoints, typeof(object));
-
-        if (SaveManager.checkIfDataExists<float>("playerTotalPoints"))
-            totalPoints = (float)SaveManager.getData<float>("playerTotalPoints");
-        else
-            SaveManager.addDataNew<float>("playerTotalPoints", ref tpObject);
-
-        //if (SaveManager.checkIfDataExists<float>("playerTotalPPS"))
-        //    pps = (float)SaveManager.getData<float>("playerTotalPPS");
-        //else
-        //    SaveManager.addDataNew<float>("playerTotalPPS", ref pps);
+        totalPoints = (float)SaveManager.getOrAddData<float>("playerTotalPoints", totalPoints);
+        pps = (float)SaveManager.getOrAddData<float>("playerTotalPPS", pps);
     }
 }
