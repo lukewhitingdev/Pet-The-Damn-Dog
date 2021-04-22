@@ -9,6 +9,7 @@ public class ShopManager : MonoBehaviour
     // Load all items from a prefab folder in resources.
     // Use their prefab names as their item names
     // Have a item script inside their prefab that we can use to get their value and also their onPurchase method.
+    public bool verbose = false;
 
     // Where to place the UI elements
     GameObject contentObject;
@@ -37,9 +38,14 @@ public class ShopManager : MonoBehaviour
         LoadUI();
 
         if (itemUIPrefab != null)
+        {
             LoadItems();
+        }
         else
-            Debug.LogError("[ShopManager][Awake] Tried to load items before the UI is loaded!");
+        {
+            if(verbose)
+                Debug.LogError("[ShopManager][Awake] Tried to load items before the UI is loaded!");
+        }
 
         // Set the content rect height to the one we calculated when loading.
         contentObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, contentHeight + 150);
@@ -48,7 +54,8 @@ public class ShopManager : MonoBehaviour
     // Loads all the UI elements in the Resources/Shop/UI folder.
     private void LoadUI()
     {
-        Debug.Log("[ShopManager] Loading UI Elements...");
+        if (verbose)
+            Debug.Log("[ShopManager] Loading UI Elements...");
 
         GameObject[] uiItems = Resources.LoadAll<GameObject>("Shop/UI");
 
@@ -84,19 +91,22 @@ public class ShopManager : MonoBehaviour
                     break;
             }
         }
-        Debug.Log("[ShopManager] Completed Loading UI Elements!");
+        if (verbose)
+            Debug.Log("[ShopManager] Completed Loading UI Elements!");
     }
 
     // Loads all the upgrades in the Resources/Shop/Upgrades folder.
     private void LoadItems()
     {
-        Debug.Log("[ShopManager] Loading Shop Items...");
+        if (verbose)
+            Debug.Log("[ShopManager] Loading Shop Items...");
 
         shopItems = Resources.LoadAll<GameObject>("Shop/Upgrades");
 
         foreach (var upgrade in shopItems)
         {
-            Debug.Log(upgrade.name);
+            if (verbose)
+                Debug.Log(upgrade.name);
 
             ShopItem shopItem = upgrade.GetComponent<ShopItem>();
 
@@ -123,6 +133,7 @@ public class ShopManager : MonoBehaviour
             }
         }
 
-        Debug.Log("[ShopManager] Finished Loading Shop Items!");
+        if (verbose)
+            Debug.Log("[ShopManager] Finished Loading Shop Items!");
     }
 }

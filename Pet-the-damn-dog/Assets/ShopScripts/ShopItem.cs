@@ -8,6 +8,8 @@ public class ShopItem : MonoBehaviour
 {
     private PointsController pointsController;
 
+    public bool verbose = false;
+
     [HideInInspector]
     public string upgradeName = "N/A";
 
@@ -18,8 +20,12 @@ public class ShopItem : MonoBehaviour
     public int level = 1;
 
     [Header("Upgrade values")]
-    public float totalPoints;
-    public float totalPPS;
+    public bool oneTime = default;
+    public float totalClickPower = default;
+    public float totalPPS = default;
+
+    [HideInInspector]
+    public bool oneTimeBought = false;
 
     private void Start()
     {
@@ -35,9 +41,13 @@ public class ShopItem : MonoBehaviour
         {
             upgradeName = upgradeName.Substring(0, upgradeName.IndexOf("(Clone)"));
         }
-        Debug.LogFormat("Loading ShopItem {0}", upgradeName);
+
+        if(verbose)
+            Debug.LogFormat("Loading ShopItem {0}", upgradeName);
+
         price = (float)SaveManager.getOrAddData<float>(upgradeName + "-price", price);
         level = (int)SaveManager.getOrAddData<int>(upgradeName + "-level", level);
+        oneTimeBought = (bool)SaveManager.getOrAddData<bool>(upgradeName + "-oneTimePurchased", oneTimeBought);
     }
 
     private void Update()
@@ -49,6 +59,7 @@ public class ShopItem : MonoBehaviour
         }
         SaveManager.updateOrAddData<float>(upgradeName + "-price", price);
         SaveManager.updateOrAddData<int>(upgradeName + "-level", level);
+        SaveManager.updateOrAddData<bool>(upgradeName + "-oneTimePurchased", oneTimeBought);
     }
 
     public void onPurchase(string objectName)
@@ -57,12 +68,17 @@ public class ShopItem : MonoBehaviour
         ShopItem item = GameObject.Find(objectName + "(Clone)").GetComponent<ShopItem>();
 
         pointsController.addPointsPerSecond(item.totalPPS);
-        pointsController.addPointsToTotal(item.totalPoints);
+        GameMaster.instance.addClickPower(item.totalClickPower);
 
         pointsController.minusPointsFromTotal(item.price);
 
         item.level++;
         item.price *= item.level;
+
+        if (item.oneTime && !item.oneTimeBought)
+        {
+            item.oneTimeBought = true;
+        }
     }
 
 }

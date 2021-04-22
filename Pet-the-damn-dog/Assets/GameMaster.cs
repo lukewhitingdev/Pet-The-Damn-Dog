@@ -23,15 +23,16 @@ public class GameMaster : MonoBehaviour
         if (petPointController == null)
             petPointController = FindObjectOfType<PetPointController>();
 
-        SaveManager.Load();
-        SaveManager.onLoad.AddListener(Load);
+        if (SaveManager.Load()) {
+            Load();
+        };
     }
 
     private void Load()
     {
         // Setup stuff we want to be saved.
-        if (SaveManager.checkIfDataExists<float>("playerClickPower"))
-            SaveManager.addData<float>("playerClickPower", clickPower);
+        clickPower = (float)SaveManager.getOrAddData<float>("playerClickPower", clickPower);
+
 
         if (SaveManager.checkIfDataExists<System.DateTime>("dateTime"))
             SaveManager.addData<System.DateTime>("dateTime", System.DateTime.Now);
@@ -69,8 +70,7 @@ public class GameMaster : MonoBehaviour
     }
     public void addClickPower(float value) {
         clickPower += value;
-        if (SaveManager.checkIfDataExists<float>("playerClickPower"))
-            SaveManager.updateOrAddData<float>("playerClickPower", clickPower);
+        SaveManager.updateOrAddData<float>("playerClickPower", clickPower);
     }
     public float getClickPower() { return clickPower; }
 

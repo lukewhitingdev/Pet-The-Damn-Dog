@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9032280735463305909}
-  - component: {fileID: 1743855956346692995}
+  - component: {fileID: 8617809246610159387}
   m_Layer: 5
-  m_Name: Better Petting Technique
+  m_Name: Doggy Treat
   m_TagString: '[ShopUI]Item'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1743855956346692995
+--- !u!114 &8617809246610159387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,7 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verbose: 0
   upgradeName: N/A
-  price: 1
+  price: 10
   level: 1
-  totalClickPower: 1
-  totalPPS: 0
+  oneTime: 1
+  totalClickPower: 0
+  totalPPS: 10
+  oneTimeBought: 0
