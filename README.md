@@ -29,5 +29,4 @@ I used generic type parameters for multiple reasons:
 
 
 ## References
-
 Dog sprites from: https://angryelk.itch.io/animated-corgi-sprite
