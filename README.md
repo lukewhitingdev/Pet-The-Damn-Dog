@@ -3,9 +3,7 @@ Pet the damn dog weekend prototype
 
 
 ## Highlight areas
-
 ### [Saving and loading system](https://github.com/lukewhitingdev/PTDD/blob/main/Pet-the-damn-dog/Assets/SaveManager.cs)
-
 #### Reasoning
 I wanted to create a saving system that was easy to use and didnt require you to create extra scripts just to save data.
 I used generic type parameters for multiple reasons:
