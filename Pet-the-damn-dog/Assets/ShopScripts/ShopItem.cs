@@ -23,6 +23,7 @@ public class ShopItem : MonoBehaviour
     public bool oneTime = default;
     public float totalClickPower = default;
     public float totalPPS = default;
+    public float multiplier = default;
 
     [HideInInspector]
     public bool oneTimeBought = false;
@@ -67,8 +68,14 @@ public class ShopItem : MonoBehaviour
         pointsController = FindObjectOfType<PointsController>();
         ShopItem item = GameObject.Find(objectName + "(Clone)").GetComponent<ShopItem>();
 
-        pointsController.addPointsPerSecond(item.totalPPS);
-        GameMaster.instance.addClickPower(item.totalClickPower);
+        if(item.totalPPS > 0)
+            pointsController.addPointsPerSecond(item.totalPPS);
+        
+        if(item.multiplier > 0)
+            pointsController.addMultiplier(multiplier);
+
+        if(item.totalClickPower > 0)
+            GameMaster.instance.addClickPower(item.totalClickPower);
 
         pointsController.minusPointsFromTotal(item.price);
 

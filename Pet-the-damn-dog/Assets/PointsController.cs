@@ -11,6 +11,7 @@ public class PointsController : MonoBehaviour
 
     float totalPoints;
     float pps;
+    float multiplier = 1f;
 
     private void Awake()
     {
@@ -37,7 +38,7 @@ public class PointsController : MonoBehaviour
         WaitForSeconds waitForSeconds = new WaitForSeconds(1.0f);   // Allow us to wait for seconds and also not use new alot inside a loop.
         while (true)
         {
-            addPointsToTotal(pps);                                  // Add ours points per second to the total points every second.
+            addPointsToTotal(pps * multiplier);                     // Add ours points per second to the total points every second.
             yield return waitForSeconds;                            // Wait the 1 second.
         }
     }
@@ -58,9 +59,17 @@ public class PointsController : MonoBehaviour
     }
     public float getPointsPerSecond() { return pps; }
 
+    public void addMultiplier(float value)
+    {
+        multiplier += value;
+        SaveManager.updateOrAddData<float>("playerMultiplier", multiplier);
+    }
+    public float getMultiplier() { return multiplier; }
+
     public void LoadData()
     {
         totalPoints = (float)SaveManager.getOrAddData<float>("playerTotalPoints", totalPoints);
         pps = (float)SaveManager.getOrAddData<float>("playerTotalPPS", pps);
+        multiplier = (float)SaveManager.getOrAddData<float>("playerMultiplier", multiplier);
     }
 }
