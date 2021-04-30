@@ -28,8 +28,19 @@ public class PointsController : MonoBehaviour
 
     private void Update()
     {
+        updateUI();
+    }
+
+    private void updateUI()
+    {
+        string drawTotalPoints = totalPoints.ToString();
         // UI Update.
-        TotalLovePointsText.text = totalPoints.ToString("0.00") + " Love Points";
+        if (totalPoints > 1000)
+        {
+            drawTotalPoints = (totalPoints / 1000).ToString() + "k";
+        }
+
+        TotalLovePointsText.text = drawTotalPoints + " Love Points";
         PPSText.text = pps.ToString("0.0") + " PP/S (Pets per second)";
     }
 
