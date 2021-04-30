@@ -9,7 +9,6 @@ I wanted to create a saving system that was easy to use and didnt require you to
 I used generic type parameters for multiple reasons:
   1. To allow more freedom with id's. This is because the script checks if the id exists but also if the data that is attached to that id is of the same type as the comparison. So      you can have 2 identical id's that return two different pieces of data without accidental contamination.
   2. To give the user more upfront indication of what they are saving so when they are using the get() method they dont accidentally grab the wrong id because they used a incorect      type.
-
 #### Code
 ```C#
     // Adds the data to a list that is saved at the end of the session.
@@ -19,9 +18,6 @@ I used generic type parameters for multiple reasons:
     public static void updateData<T>(string id, object overwriteData);
     
     // Returns the savedData within the loadedData list.
-    public static object getData<T>(string id);
-    
-    // Returns the requested data from the Type (T) and identifier (id)
     public static object getData<T>(string id);
 ```
 
