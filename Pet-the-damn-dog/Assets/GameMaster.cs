@@ -26,6 +26,8 @@ public class GameMaster : MonoBehaviour
         if (SaveManager.Load()) {
             Load();
         };
+
+        pointsController.permMultiplier = 1;
     }
 
     private void Load()
@@ -59,6 +61,11 @@ public class GameMaster : MonoBehaviour
             if (SaveManager.checkIfDataExists<float>("playerTotalPPS"))
                 pointsController.addPointsToTotal((float)SaveManager.getData<float>("playerTotalPPS") * (float)dateTimeDiff);
         }
+    }
+
+    public void prestige()
+    {
+        pointsController.permMultiplier += 1;
     }
 
     // Clicking.

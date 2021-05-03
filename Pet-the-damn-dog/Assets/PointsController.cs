@@ -12,9 +12,11 @@ public class PointsController : MonoBehaviour
     float totalPoints;
     float pps;
     float multiplier = 1f;
+    public float permMultiplier = 1;
 
     private void Awake()
     {
+        permMultiplier = 1;
         SaveManager.onLoad.AddListener(LoadData);
     }
 
@@ -29,6 +31,8 @@ public class PointsController : MonoBehaviour
     private void Update()
     {
         updateUI();
+
+        SaveManager.updateOrAddData<float>("playerTotalPPS", (pps * multiplier * permMultiplier));
     }
 
     private void updateUI()
@@ -41,7 +45,7 @@ public class PointsController : MonoBehaviour
         }
 
         TotalLovePointsText.text = drawTotalPoints + " Love Points";
-        PPSText.text = pps.ToString("0.0") + " PP/S (Pets per second)";
+        PPSText.text = (pps * multiplier * permMultiplier).ToString("0.0") + " PP/S (Pets per second)";
     }
 
     IEnumerator CalculatePointsPerSecond()
@@ -49,7 +53,7 @@ public class PointsController : MonoBehaviour
         WaitForSeconds waitForSeconds = new WaitForSeconds(1.0f);   // Allow us to wait for seconds and also not use new alot inside a loop.
         while (true)
         {
-            addPointsToTotal(pps * multiplier);                     // Add ours points per second to the total points every second.
+            addPointsToTotal(pps * multiplier * permMultiplier);    // Add ours points per second to the total points every second.
             yield return waitForSeconds;                            // Wait the 1 second.
         }
     }
@@ -80,7 +84,8 @@ public class PointsController : MonoBehaviour
     public void LoadData()
     {
         totalPoints = (float)SaveManager.getOrAddData<float>("playerTotalPoints", totalPoints);
-        pps = (float)SaveManager.getOrAddData<float>("playerTotalPPS", pps);
+        pps = (float)SaveManager.getOrAddData<float>("playerTotalPPS", (pps * multiplier * permMultiplier));
         multiplier = (float)SaveManager.getOrAddData<float>("playerMultiplier", multiplier);
+        permMultiplier = (float)SaveManager.getOrAddData<float>("playerPermMultiplier", permMultiplier);
     }
 }
