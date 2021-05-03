@@ -52,8 +52,9 @@ MonoBehaviour:
   upgradeName: N/A
   price: 10
   level: 1
+  largeUpgrade: 1
   oneTime: 1
   totalClickPower: 0
-  totalPPS: 0
+  totalPPS: 1
   multiplier: 1
   oneTimeBought: 0

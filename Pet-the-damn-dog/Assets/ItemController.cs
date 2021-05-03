@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class ItemController : MonoBehaviour
 {
-    private TextMeshProUGUI itemName, itemPrice, purchaseButtonTxt;
+    private TextMeshProUGUI itemName, itemPrice, itemStats, purchaseButtonTxt;
     private Button purchaseButton;
 
     private PointsController pointsController;
     private ShopItem shopItem;
+
+    private Image[] upgradeIcons;
 
     void Awake()
     {
@@ -34,11 +36,15 @@ public class ItemController : MonoBehaviour
                     purchaseButtonTxt = text;
                     break;
 
+                case "Stat":
+                    itemStats = text;
+                    break;
+
                 default:
                     break;
             }
         }
-
+        upgradeIcons = transform.Find("Icon").GetComponentsInChildren<Image>();
         purchaseButton = GetComponentInChildren<Button>();
         pointsController = FindObjectOfType<PointsController>();
     }
@@ -46,7 +52,25 @@ public class ItemController : MonoBehaviour
     private void Start()
     {
         shopItem = GetComponentInChildren<ShopItem>();
-        
+
+        // Setup icon stuff
+        if (shopItem.largeUpgrade)
+        {
+            upgradeIcons[0].enabled = false;
+            upgradeIcons[1].enabled = true;
+        }
+        else
+        {
+            upgradeIcons[0].enabled = true;
+            upgradeIcons[1].enabled = false;
+        }
+
+        // Setup stats
+        itemStats.text = "";
+
+        itemStats.text += (shopItem.totalClickPower > 0) ? " CP + " + shopItem.totalClickPower.ToString() : "";
+        itemStats.text += (shopItem.totalPPS > 0) ? " PP + " + shopItem.totalPPS.ToString() : "";
+        itemStats.text += (shopItem.multiplier > 0) ? " Multi + " + shopItem.multiplier.ToString() : "";
     }
 
     // Update is called once per frame
@@ -76,7 +100,12 @@ public class ItemController : MonoBehaviour
             purchaseButtonTxt.text = (!shopItem.oneTimeBought) ? "Purchase" : "Purchased";
 
             if (shopItem.oneTimeBought)
+            {
                 itemPrice.text = "Purchased";
+                itemPrice.color = Color.gray;
+                purchaseButtonTxt.color = Color.green;
+                purchaseButton.targetGraphic.enabled = false;
+            }
         }
     }
 }

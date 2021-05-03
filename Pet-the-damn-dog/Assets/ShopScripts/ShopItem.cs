@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,13 @@ using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
 {
+
+    public struct upgrade
+    {
+        public string name;
+        public string value;
+    }
+
     private PointsController pointsController;
 
     public bool verbose = false;
@@ -20,6 +28,7 @@ public class ShopItem : MonoBehaviour
     public int level = 1;
 
     [Header("Upgrade values")]
+    public bool largeUpgrade = default;
     public bool oneTime = default;
     public float totalClickPower = default;
     public float totalPPS = default;
