@@ -7,18 +7,10 @@ using UnityEngine.UI;
 [Serializable]
 public class ShopItem : MonoBehaviour
 {
-
-    public struct upgrade
-    {
-        public string name;
-        public string value;
-    }
-
     private PointsController pointsController;
-
     public bool verbose = false;
 
-    [HideInInspector]
+    [Header("Name")]
     public string upgradeName = "N/A";
 
     [Header("Upgrade Costs")]
