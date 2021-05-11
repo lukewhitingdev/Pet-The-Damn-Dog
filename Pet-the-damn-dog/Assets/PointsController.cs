@@ -31,21 +31,34 @@ public class PointsController : MonoBehaviour
     private void Update()
     {
         updateUI();
-
         SaveManager.updateOrAddData<float>("playerTotalPPS", (pps * multiplier * permMultiplier));
+    }
+
+    private string formatPoints(float points)
+    {
+        string drawTotalPoints = totalPoints.ToString();
+
+        // UI Update.
+        if (points > 1000)                                      // 1k
+            drawTotalPoints = (points / 1000).ToString("0.0") + "k";
+        if (points > 10000)                                     // 100k = 1K * 10
+            drawTotalPoints = (points / 10000).ToString("0.0") + "K";
+        if (points > 1000000)                                   // 1000K = 1m * 10
+            drawTotalPoints = (points / 1000000).ToString("0.0") + "m";
+        if (points > 10000000)                                  // 100m = 1M
+            drawTotalPoints = (points / 100000000).ToString("0.0") + "M";
+        if (points > 10000000000)                               // 1000M = 1b
+            drawTotalPoints = (points / 100000000).ToString("0.0") + "b";
+        if (points > 100000000000)                               // 1000M = 1b
+            drawTotalPoints = (points / 100000000).ToString("0.0") + "B";
+
+        return drawTotalPoints;
     }
 
     private void updateUI()
     {
-        string drawTotalPoints = totalPoints.ToString();
-        // UI Update.
-        if (totalPoints > 1000)
-        {
-            drawTotalPoints = (totalPoints / 1000).ToString() + "k";
-        }
-
-        TotalLovePointsText.text = drawTotalPoints + " Love Points";
-        PPSText.text = (pps * multiplier * permMultiplier).ToString("0.0") + " PP/S (Pets per second)";
+        TotalLovePointsText.text = formatPoints(totalPoints) + " Love Points";
+        PPSText.text = formatPoints((pps * multiplier * permMultiplier)) + " PP/S (Pets per second)";
     }
 
     IEnumerator CalculatePointsPerSecond()
