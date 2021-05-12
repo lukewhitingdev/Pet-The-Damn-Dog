@@ -58,7 +58,7 @@ public class PointsController : MonoBehaviour
     private void updateUI()
     {
         TotalLovePointsText.text = formatPoints(totalPoints) + " Love Points";
-        PPSText.text = formatPoints((pps * multiplier * permMultiplier)) + " PP/S (Pets per second)";
+        PPSText.text = formatPoints(pps * multiplier * permMultiplier) + " PP/S (Pets per second)";
     }
 
     IEnumerator CalculatePointsPerSecond()
