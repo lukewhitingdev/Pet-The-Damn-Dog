@@ -35,10 +35,8 @@ public class GameMaster : MonoBehaviour
         // Setup stuff we want to be saved.
         clickPower = (float)SaveManager.getOrAddData<float>("playerClickPower", clickPower);
 
-
         if (SaveManager.checkIfDataExists<System.DateTime>("dateTime"))
             SaveManager.addData<System.DateTime>("dateTime", System.DateTime.Now);
-
 
         // Setup stuff we want to load.
         if (SaveManager.checkIfDataExists<float>("playerClickPower"))
@@ -63,10 +61,7 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    public void prestige()
-    {
-        pointsController.permMultiplier += 1;
-    }
+    public void prestige() { pointsController.prestige(); }
 
     // Clicking.
     private float clickPower = 1.0f;

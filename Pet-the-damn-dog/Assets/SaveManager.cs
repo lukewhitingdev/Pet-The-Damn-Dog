@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public static class SaveManager
 {
 
-    public static bool verbose = true;                                             // Dictate whether debug logs are printed.
+    public static bool verbose = false;                                             // Dictate whether debug logs are printed.
     static public UnityEvent onLoad = new UnityEvent();
 
     [Serializable]

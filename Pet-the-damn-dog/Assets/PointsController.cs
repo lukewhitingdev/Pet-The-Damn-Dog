@@ -12,10 +12,16 @@ public class PointsController : MonoBehaviour
     float totalPoints;
     float pps;
     float multiplier = 1f;
+    float prestigePoints = 0;
+    float prestigePointThreshold = 150 * 100;    // Initially 15k.
+    float prestigePointThresholdMultiplier = 2;  // Used to increment the prestige token generation.
+    
+
     public float permMultiplier = 1;
 
     private void Awake()
     {
+        addPointsPerSecond(1000);
         permMultiplier = 1;
         SaveManager.onLoad.AddListener(LoadData);
     }
@@ -36,21 +42,26 @@ public class PointsController : MonoBehaviour
 
     private string formatPoints(float points)
     {
-        string drawTotalPoints = totalPoints.ToString();
+        string drawTotalPoints = points.ToString();
 
         // UI Update.
-        if (points > 1000)                                      // 1k
-            drawTotalPoints = (points / 1000).ToString("0.0") + "k";
-        if (points > 10000)                                     // 100k = 1K * 10
-            drawTotalPoints = (points / 10000).ToString("0.0") + "K";
-        if (points > 1000000)                                   // 1000K = 1m * 10
-            drawTotalPoints = (points / 1000000).ToString("0.0") + "m";
-        if (points > 10000000)                                  // 100m = 1M
-            drawTotalPoints = (points / 100000000).ToString("0.0") + "M";
-        if (points > 10000000000)                               // 1000M = 1b
-            drawTotalPoints = (points / 100000000).ToString("0.0") + "b";
-        if (points > 100000000000)                               // 1000M = 1b
-            drawTotalPoints = (points / 100000000).ToString("0.0") + "B";
+
+        if (false)
+        {
+            if (points > 1000)                                      // 1k
+                drawTotalPoints = (points / 1000).ToString("0.0") + "k";
+            if (points > 10000)                                     // 100k = 1K * 10
+                drawTotalPoints = (points / 10000).ToString("0.0") + "K";
+            if (points > 1000000)                                   // 1000K = 1m * 10
+                drawTotalPoints = (points / 1000000).ToString("0.0") + "m";
+            if (points > 10000000)                                  // 100m = 1M
+                drawTotalPoints = (points / 100000000).ToString("0.0") + "M";
+            if (points > 10000000000)                               // 1000M = 1b
+                drawTotalPoints = (points / 100000000).ToString("0.0") + "b";
+            if (points > 100000000000)                               // 1000M = 1b
+                drawTotalPoints = (points / 100000000).ToString("0.0") + "B";
+        }
+
 
         return drawTotalPoints;
     }
@@ -74,6 +85,12 @@ public class PointsController : MonoBehaviour
     public void addPointsToTotal(float value) { 
         totalPoints += value;
         SaveManager.updateOrAddData<float>("playerTotalPoints", totalPoints);
+
+        if (totalPoints >= prestigePointThreshold)
+        {
+            addPrestigePoints(1.0f);
+            prestigePointThreshold *= prestigePointThresholdMultiplier;
+        }
     }
     public void minusPointsFromTotal(float value) { 
         totalPoints -= value;
@@ -94,11 +111,33 @@ public class PointsController : MonoBehaviour
     }
     public float getMultiplier() { return multiplier; }
 
+    public void addPrestigePoints(float value)
+    {
+        prestigePoints += value;
+        SaveManager.updateOrAddData<float>("prestigePoints", prestigePoints);
+    }
+    public void minusPrestigePoints(float value)
+    {
+        prestigePoints -= value;
+        SaveManager.updateOrAddData<float>("prestigePoints", prestigePoints);
+    }
+    public float getPrestigePoints() { return prestigePoints; }
+
+    public void prestige()
+    {
+        if(prestigePoints > 0)
+        {
+            permMultiplier += 1;
+            minusPrestigePoints(1);
+        }
+    }
+
     public void LoadData()
     {
         totalPoints = (float)SaveManager.getOrAddData<float>("playerTotalPoints", totalPoints);
         pps = (float)SaveManager.getOrAddData<float>("playerTotalPPS", (pps * multiplier * permMultiplier));
         multiplier = (float)SaveManager.getOrAddData<float>("playerMultiplier", multiplier);
         permMultiplier = (float)SaveManager.getOrAddData<float>("playerPermMultiplier", permMultiplier);
+        prestigePoints = (float)SaveManager.getOrAddData<float>("prestigePoints", prestigePoints);
     }
 }
