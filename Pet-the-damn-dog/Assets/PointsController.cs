@@ -21,7 +21,6 @@ public class PointsController : MonoBehaviour
 
     private void Awake()
     {
-        addPointsPerSecond(1000);
         permMultiplier = 1;
         SaveManager.onLoad.AddListener(LoadData);
     }

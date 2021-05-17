@@ -81,7 +81,7 @@ public class ShopItem : MonoBehaviour
         pointsController.minusPointsFromTotal(item.price);
 
         item.level++;
-        item.price *= item.level;
+        item.price *= 1.4f;
 
         if (item.oneTime && !item.oneTimeBought)
         {
