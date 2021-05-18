@@ -40,25 +40,25 @@ The way I found to do it was to use a serializedObject of the shopItem script an
 
 Allowing for the upgradeCreator script to dynamically handle any additions or deletions to shopItem fields.
 ```C#
-        // Automatically applies the properties of our serializedObject to our prefab component.
-        foreach (var UpgradeProperty in upgradeProperties)
-        {
-            // Gets all the specific field by name. Identical to the way that you get the property in a serializedObject.
-            FieldInfo property = typeof(ShopItem).GetField(UpgradeProperty.Key); 
+// Automatically applies the properties of our serializedObject to our prefab component.
+foreach (var UpgradeProperty in upgradeProperties)
+{
+    // Gets all the specific field by name. Identical to the way that you get the property in a serializedObject.
+    FieldInfo property = typeof(ShopItem).GetField(UpgradeProperty.Key); 
 
-            // Set the value of the property depending on its type. Would be nicer if serializedProperties could be casted but this works.
-            if (UpgradeProperty.Value == typeof(bool))
-                property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).boolValue);
+    // Set the value of the property depending on its type. Would be nicer if serializedProperties could be casted but this works.
+    if (UpgradeProperty.Value == typeof(bool))
+        property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).boolValue);
 
-            if (UpgradeProperty.Value == typeof(float))
-                property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).floatValue);
+    if (UpgradeProperty.Value == typeof(float))
+        property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).floatValue);
 
-            if (UpgradeProperty.Value == typeof(int))
-                property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).intValue);
+    if (UpgradeProperty.Value == typeof(int))
+        property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).intValue);
 
-            if (UpgradeProperty.Value == typeof(double))
-                property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).doubleValue);
-        }
+    if (UpgradeProperty.Value == typeof(double))
+        property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).doubleValue);
+}
 ```
 
 ## References
