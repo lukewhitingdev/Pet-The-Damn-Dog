@@ -27,6 +27,9 @@ I used generic type parameters for multiple reasons:
     public static bool checkIfDataExists<T>(string id);
 ```
 
+### [Upgrade Creator](https://github.com/lukewhitingdev/PTDD/blob/be838ff4bd87854077fa099455afdcdded71c581/Pet-the-damn-dog/Assets/UpgradeCreator.cs)
+#### Reasoning
+I wanted a easy way to create the content for the idle game. Since idle games content mainly comes from the upgrade you can use to enrich your experience and progress through the game I thought that a easy way to create the content on the dev-side of things was a must.
 
 ## References
 Dog sprites from: https://angryelk.itch.io/animated-corgi-sprite
