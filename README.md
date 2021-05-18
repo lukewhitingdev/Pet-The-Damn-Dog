@@ -31,5 +31,35 @@ I used generic type parameters for multiple reasons:
 #### Reasoning
 I wanted a easy way to create the content for the idle game. Since idle games content mainly comes from the upgrade you can use to enrich your experience and progress through the game I thought that a easy way to create the content on the dev-side of things was a must.
 
+
+#### Specific Code Snippets
+
+This particular is used when spawning the new upgrade prefab. I wanted a way of allowing flexibility when extending the shopItem script that all upgrades use whilst also keeping the modification to this script minimal.
+
+The way I found to do it was to use a serializedObject of the shopItem script and use Type.GetField() method to dynamically get all the fields that where inside the shopItem script. Since the serializedObject and the (to be created) prefab's shopItem script had the same fields I could just loop through them all and apply the values as we go. 
+
+Allowing for the upgradeCreator script to dynamically handle any additions or deletions to shopItem fields.
+```C#
+        // Automatically applies the properties of our serializedObject to our prefab component.
+        foreach (var UpgradeProperty in upgradeProperties)
+        {
+            // Gets all the specific field by name. Identical to the way that you get the property in a serializedObject.
+            FieldInfo property = typeof(ShopItem).GetField(UpgradeProperty.Key); 
+
+            // Set the value of the property depending on its type. Would be nicer if serializedProperties could be casted but this works.
+            if (UpgradeProperty.Value == typeof(bool))
+                property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).boolValue);
+
+            if (UpgradeProperty.Value == typeof(float))
+                property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).floatValue);
+
+            if (UpgradeProperty.Value == typeof(int))
+                property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).intValue);
+
+            if (UpgradeProperty.Value == typeof(double))
+                property.SetValue(prefabShopItem, serializedObject.FindProperty(UpgradeProperty.Key).doubleValue);
+        }
+```
+
 ## References
 Dog sprites from: https://angryelk.itch.io/animated-corgi-sprite
