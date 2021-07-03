@@ -5,30 +5,29 @@ using System.IO;
 using UnityEngine;
 
 [Serializable]
-public class Audio
-{
-    public string id;
-    public string path;
-}
-
-public class Sound
-{
-    public Audio audio;
-    public AudioSource source;
-}
-
-[Serializable]
-public class ListWrapper<T> 
-{
-    public List<T> wrappedList;
-}
-
-
-[Serializable]
 public class AudioController : MonoBehaviour
 {
+
+    [Serializable]
+    public class Audio
+    {
+        public string id;
+        public string path;
+    }
+
+    public class Sound
+    {
+        public Audio audio;
+        public AudioSource source;
+    }
+
+    [Serializable]
+    public class ListWrapper<T>
+    {
+        public List<T> wrappedList;
+    }
+
     /*
-     
         Problems:
         Need a way to save audio that we are using to disk. so we can edit them later.
         Need a way to easily add audio clips probs similar to the UpgradeCreator.cs
@@ -38,11 +37,12 @@ public class AudioController : MonoBehaviour
         Loads all sounds from file -> When we want them we call the AudioController.search("[AudioID]").play to play.
      */
 
-    private List<Audio> audios = new List<Audio>(); // Audio clips we want to use in the game. (Used for saving)
+    public List<Audio> audios = new List<Audio>(); // Audio clips we want to use in the game. (Used for saving)
     private List<Sound> sounds = new List<Sound>(); // Audio's that are linked to instanciated audioSources in-game (Used for reference at run-time).
 
     // Config
-    private string savedAudioName = "audiosJSON";
+    //private string savedAudioName = "audiosJSON";
+    public string savedAudioName = "test123";
 
 
     /*  
@@ -64,7 +64,7 @@ public class AudioController : MonoBehaviour
      *  3. Write to a JSON file in the resources folder for storage. (Will overwrite everytime since we have no need for old data)
      */
 
-    private void saveAudios(string path) { File.WriteAllText(Application.dataPath + "/Resources/" + path, JsonUtility.ToJson(new ListWrapper<Audio>() { wrappedList = audios }, true)); }
+    public void saveAudios(string path) { File.WriteAllText(Application.dataPath + "/Resources/" + path, JsonUtility.ToJson(new ListWrapper<Audio>() { wrappedList = audios }, true)); }
 
     private void createSounds()
     {
