@@ -62,5 +62,5 @@ foreach (var UpgradeProperty in upgradeProperties)
 ```
 
 ## Resources Used.
-Dog sprites from: https://angryelk.itch.io/animated-corgi-sprite
+Dog sprites from: https://angryelk.itch.io/animated-corgi-sprite \n
 Unity File explorer from: https://github.com/gkngkc/UnityStandaloneFileBrowser
