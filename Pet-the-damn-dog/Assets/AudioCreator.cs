@@ -23,7 +23,7 @@ public class AudioCreator : EditorWindow
         iterator = 0;
     }
 
-    [MenuItem("PetTheDamnDog/Create Audio")]
+    [MenuItem("PetTheDamnDog/Audio/Create Audio")]
     static public void spawnWindow()
     {
         GetWindow<AudioCreator>("Audio Creator").minSize = new Vector2(1280, 150);

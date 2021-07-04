@@ -54,7 +54,7 @@ public class AudioController : MonoBehaviour
      *  4. Returns the wrappedList back to user. 
      */
 
-    private List<Audio> loadAudios(string path){ return JsonUtility.FromJson<ListWrapper<Audio>>(Resources.Load<TextAsset>(path).text).wrappedList; }
+    public List<Audio> loadAudios(string path){ return JsonUtility.FromJson<ListWrapper<Audio>>(Resources.Load<TextAsset>(path).text).wrappedList; }
 
     /*  
      *  Used to save audios to a json file.

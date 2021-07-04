@@ -1,36 +1,3 @@
 {
-    "wrappedList": [
-        {
-            "id": "test1",
-            "path": "D:\\Local Git\\Personal\\PTDD\\Pet-the-damn-dog\\Assets\\Resources\\Audio\\Sources\\test.mp3"
-        },
-        {
-            "id": "test2",
-            "path": "D:\\Local Git\\Personal\\PTDD\\Pet-the-damn-dog\\Assets\\Resources\\Audio\\Sources\\test2.mp3"
-        },
-        {
-            "id": "test123",
-            "path": "Resources\\Audio\\Sources\\test.mp3"
-        },
-        {
-            "id": "test1234",
-            "path": "Audio\\Sources\\test.mp3"
-        },
-        {
-            "id": "test142332",
-            "path": "Audio\\Sources\\test"
-        },
-        {
-            "id": "test",
-            "path": "Audio\\Sources\\test"
-        },
-        {
-            "id": "testAudio",
-            "path": "Audio\\Sources\\test"
-        },
-        {
-            "id": "test1234",
-            "path": "Audio\\Sources\\test"
-        }
-    ]
+    "wrappedList": []
 }
