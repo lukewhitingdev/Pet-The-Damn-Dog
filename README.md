@@ -27,7 +27,7 @@ public static object getData<T>(string id);
 public static bool checkIfDataExists<T>(string id);
 ```
 
-### [Upgrade Creator](https://github.com/lukewhitingdev/PTDD/blob/be838ff4bd87854077fa099455afdcdded71c581/Pet-the-damn-dog/Assets/UpgradeCreator.cs)
+### [Upgrade Creator](https://github.com/lukewhitingdev/PTDD/blob/main/Pet-the-damn-dog/Assets/UpgradeCreator.cs)
 #### Reasoning
 I wanted a easy way to create the content for the idle game. Since idle games content mainly comes from the upgrade you can use to enrich your experience and progress through the game I thought that a easy way to create the content on the dev-side of things was a must.
 
@@ -60,12 +60,9 @@ foreach (var UpgradeProperty in upgradeProperties)
 }
 ```
 
-### [Audio System]("")
+### [Audio System]("https://github.com/lukewhitingdev/PTDD/blob/main/Pet-the-damn-dog/Assets/AudioController.cs")
 #### Reasoning
 I wanted to create a easy to use audio system that could be referenced throught the project and be easily editable and savable for future use. To do this I created a basic audio manager script that would control all the audio in game. This is suplemented by other editor scripts that are used to add, edit and remove audio from the game. Each imported audio can be referenced by its id that was set at import time. I feel this helps speed up the development process as i dont have to re-shuffle the array of audios everytime as it is automated now.
-
-#### Specific Code Snippets
-[TODO]
 
 ## Resources Used.
 Dog sprites from: https://angryelk.itch.io/animated-corgi-sprite
