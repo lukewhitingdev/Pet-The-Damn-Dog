@@ -64,6 +64,36 @@ foreach (var UpgradeProperty in upgradeProperties)
 #### Reasoning
 I wanted to create a easy to use audio system that could be referenced throught the project and be easily editable and savable for future use. To do this I created a basic audio manager script that would control all the audio in game. This is suplemented by other editor scripts that are used to add, edit and remove audio from the game. Each imported audio can be referenced by its id that was set at import time. I feel this helps speed up the development process as i dont have to re-shuffle the array of audios everytime as it is automated now.
 
+#### Specific Code Snippets
+These are the general functions inside the audioController class.
+
+You will see that the save and load functions look a bit wierd. That is because whilst testing i found that using JsonUtility.ToJson() on a normal C# List<> doesnt serialize it properly. So after some research i found a solution which is to wrap it in a class that holds its list, which is then marked as serializable.
+
+Also the save file format is JSON just for read-ability and ease of editing if there is a problem with the audioManager in the future. Binary formats would definitely be faster to parse.
+
+```C#
+public void saveAudios(string path) { File.WriteAllText(Application.dataPath + "/Resources/" + path, JsonUtility.ToJson(new ListWrapper<Audio>() { wrappedList = audios }, true)); }
+
+public AudioSource getSound(string id){ return sounds.Find(x => x.audio.id == id).source; }
+
+private void createSounds()
+{
+    foreach (var audio in audios)
+    {
+        GameObject soundObject = new GameObject(audio.id);
+        soundObject.transform.parent = this.transform;
+        Sound sound = new Sound();
+        sound.audio = audio;
+        sound.source = soundObject.AddComponent<AudioSource>();
+        sound.source.playOnAwake = false;
+        sound.source.clip = Resources.Load<AudioClip>(audio.path);
+    }
+}
+
+public List<Audio> loadAudios(string path){ return JsonUtility.FromJson<ListWrapper<Audio>>(Resources.Load<TextAsset>(path).text).wrappedList; }
+
+```
+
 ## Resources Used.
 Dog sprites from: https://angryelk.itch.io/animated-corgi-sprite
 
