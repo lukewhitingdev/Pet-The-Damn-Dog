@@ -83,7 +83,7 @@ public class ItemController : MonoBehaviour
         }
 
         // Update item price dynamically.
-        itemPrice.text = shopItem.price.ToString() + " Love Points";
+        itemPrice.text = NumberFormatter.formatNumber(shopItem.price) + " Love Points";
 
         // Update purchase button availability 
         if (!shopItem.oneTimeBought && !(shopItem.price > pointsController.getTotalPoints()))
