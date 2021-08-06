@@ -1,5 +1,5 @@
 # PTDD
-Pet the damn dog weekend prototype
+Pet the damn dog weekend prototype (bit longer than a weekend lol)
 
 
 ## Highlight areas
