@@ -75,18 +75,20 @@ public class AudioController : MonoBehaviour
     {
         foreach (var audio in audios)
         {
-            if (audioMixer.FindMatchingGroups(audio.mixerGroupID)[0] == null)
-                Debug.LogWarning("[AudioCreation] Creating audio without corresponding mixer! Make sure the mixer exists before creating the sounds!");
-
-            Debug.Log(audioMixer.FindMatchingGroups(audio.mixerGroupID)[0]);
-
             GameObject soundObject = new GameObject(audio.id);
             soundObject.transform.parent = this.transform;
             Sound sound = new Sound();
             sound.audio = audio;
             sound.source = soundObject.AddComponent<AudioSource>();
             sound.source.playOnAwake = false;
-            sound.source.outputAudioMixerGroup = audioMixer.FindMatchingGroups(audio.mixerGroupID)[0];
+            try
+            {
+                sound.source.outputAudioMixerGroup = audioMixer.FindMatchingGroups(audio.mixerGroupID)[0];
+            }
+            catch (Exception)
+            {
+                Debug.LogWarning("[AudioCreation] Creating audio without corresponding mixer! Make sure the mixer exists before creating the sounds!");
+            }
             sound.source.clip = Resources.Load<AudioClip>(audio.path);
         }
     }
