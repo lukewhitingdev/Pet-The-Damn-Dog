@@ -1,5 +1,5 @@
 # PTDD
-Pet the damn dog weekend prototype
+Pet the damn dog personal project
 
 
 ## Highlight areas
@@ -61,6 +61,7 @@ foreach (var UpgradeProperty in upgradeProperties)
 ```
 
 ### [Audio System](https://github.com/lukewhitingdev/PTDD/blob/main/Pet-the-damn-dog/Assets/AudioController.cs)
+### (WIP)
 #### Reasoning
 I wanted to create a easy to use audio system that could be referenced throught the project and be easily editable and savable for future use. To do this I created a basic audio manager script that would control all the audio in game. This is suplemented by other editor scripts that are used to add, edit and remove audio from the game. Each imported audio can be referenced by its id that was set at import time. I feel this helps speed up the development process as i dont have to re-shuffle the array of audios everytime as it is automated now.
 
