@@ -1,3 +1,9 @@
 {
-    "wrappedList": []
+    "wrappedList": [
+        {
+            "id": "Yeet",
+            "path": "Audio\\Sources\\test",
+            "mixerGroupID": "Master"
+        }
+    ]
 }

@@ -10,8 +10,9 @@ public class AudioCreator : EditorWindow
     string[] paths; // Holds the paths from the explorer window.
     private int iterator;   // Used to loop through all the staged changes when giving new audio its id's
     private string currentID = "N/A";   // Used to give audios their id (defaulted to N/A so the user has to change it)
+    private string currentMixerID = "N/A";  // Used to give audios their mixer id (defaulted to N/A so the user has to change it)
     private bool editingDone = false;   // Used to tell the GUI to move onto its saving display rather than keep looping.
-    Dictionary<string, string> audiosToBeCreated = new Dictionary<string, string>();    // Used to hold all the audios that are going to be written into JSON once saved.
+    List<AudioController.Audio> audiosToBeCreated = new List<AudioController.Audio>();    // Used to hold all the audios that are going to be written into JSON once saved.
 
     ExtensionFilter[] extensions = new[] {
         new ExtensionFilter("Sound Files", "mp3", "wav")
@@ -54,19 +55,26 @@ public class AudioCreator : EditorWindow
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("ID:");
+            EditorGUILayout.LabelField("MixerID:");
             EditorGUILayout.LabelField("Path:");
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             currentID = EditorGUILayout.TextField(currentID);
+            currentMixerID = EditorGUILayout.TextField(currentMixerID);
             EditorGUILayout.LabelField(currentPath);
             EditorGUILayout.EndHorizontal();
 
-            if(currentID != "N/A")
+            if (currentID != "N/A" && currentMixerID != "N/A")
             {
                 if (GUILayout.Button("Save audio settings"))
                 {
-                    audiosToBeCreated.Add(currentID, currentPath);
+                    AudioController.Audio audio = new AudioController.Audio();
+                    audio.id = currentID;
+                    audio.path = currentPath;
+                    audio.mixerGroupID = currentMixerID;
+
+                    audiosToBeCreated.Add(audio);
                     if(iterator < paths.Length - 1)
                     {
                         currentID = "N/A";   
@@ -89,12 +97,14 @@ public class AudioCreator : EditorWindow
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("ID:");
+                EditorGUILayout.LabelField("MixerID:");
                 EditorGUILayout.LabelField("Path:");
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(audio.Key);
-                EditorGUILayout.LabelField(audio.Value);
+                EditorGUILayout.LabelField(audio.id);
+                EditorGUILayout.LabelField(audio.mixerGroupID);
+                EditorGUILayout.LabelField(audio.path);
                 EditorGUILayout.EndHorizontal();
             }
 
@@ -116,10 +126,7 @@ public class AudioCreator : EditorWindow
 
         foreach (var item in audiosToBeCreated)
         {
-            AudioController.Audio audio = new AudioController.Audio();
-            audio.id = item.Key;
-            audio.path = item.Value;
-            audioController.audios.Add(audio);
+            audioController.audios.Add(item);
         }
 
         audioController.saveAudios("Audio/" + audioController.savedAudioName + ".json");

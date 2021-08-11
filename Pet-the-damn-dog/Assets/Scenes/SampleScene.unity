@@ -2995,19 +2995,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4107d00c0beec7648bfca9abbb1b273e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 4dc076a951b405447a88115de004cbc1, type: 2}
   audios:
   - id: test1
     path: D:\Local Git\Personal\PTDD\Pet-the-damn-dog\Assets\Resources\Audio\Sources\test.mp3
+    mixerGroupID: 
   - id: test2
     path: D:\Local Git\Personal\PTDD\Pet-the-damn-dog\Assets\Resources\Audio\Sources\test2.mp3
+    mixerGroupID: 
   - id: test123
     path: Resources\Audio\Sources\test.mp3
+    mixerGroupID: 
   - id: test1234
     path: Audio\Sources\test.mp3
+    mixerGroupID: 
   - id: test142332
     path: Audio\Sources\test
+    mixerGroupID: 
   - id: test
     path: Audio\Sources\test
+    mixerGroupID: 
   savedAudioName: test123
 --- !u!4 &2102453797
 Transform:

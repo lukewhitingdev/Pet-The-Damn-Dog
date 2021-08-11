@@ -3,22 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [Serializable]
 public class AudioController : MonoBehaviour
 {
+
+    [SerializeField] private AudioMixer audioMixer;
 
     [Serializable]
     public class Audio
     {
         public string id;
         public string path;
+        public string mixerGroupID;
     }
 
     public class Sound
     {
         public Audio audio;
         public AudioSource source;
+        public AudioMixerGroup mixerGroup;
     }
 
     [Serializable]
@@ -70,12 +75,18 @@ public class AudioController : MonoBehaviour
     {
         foreach (var audio in audios)
         {
+            if (audioMixer.FindMatchingGroups(audio.mixerGroupID)[0] == null)
+                Debug.LogWarning("[AudioCreation] Creating audio without corresponding mixer! Make sure the mixer exists before creating the sounds!");
+
+            Debug.Log(audioMixer.FindMatchingGroups(audio.mixerGroupID)[0]);
+
             GameObject soundObject = new GameObject(audio.id);
             soundObject.transform.parent = this.transform;
             Sound sound = new Sound();
             sound.audio = audio;
             sound.source = soundObject.AddComponent<AudioSource>();
             sound.source.playOnAwake = false;
+            sound.source.outputAudioMixerGroup = audioMixer.FindMatchingGroups(audio.mixerGroupID)[0];
             sound.source.clip = Resources.Load<AudioClip>(audio.path);
         }
     }
