@@ -1,39 +1,9 @@
 {
     "wrappedList": [
         {
-            "id": "test1",
-            "path": "D:\\Local Git\\Personal\\PTDD\\Pet-the-damn-dog\\Assets\\Resources\\Audio\\Sources\\test.mp3",
-            "mixerGroupID": ""
-        },
-        {
-            "id": "test2",
-            "path": "D:\\Local Git\\Personal\\PTDD\\Pet-the-damn-dog\\Assets\\Resources\\Audio\\Sources\\test2.mp3",
-            "mixerGroupID": ""
-        },
-        {
-            "id": "test123",
-            "path": "Resources\\Audio\\Sources\\test.mp3",
-            "mixerGroupID": ""
-        },
-        {
-            "id": "test1234",
-            "path": "Audio\\Sources\\test.mp3",
-            "mixerGroupID": ""
-        },
-        {
-            "id": "test142332",
+            "id": "BackgroundMusic",
             "path": "Audio\\Sources\\test",
-            "mixerGroupID": ""
-        },
-        {
-            "id": "test",
-            "path": "Audio\\Sources\\test",
-            "mixerGroupID": ""
-        },
-        {
-            "id": "Teet123",
-            "path": "Audio\\Sources\\test",
-            "mixerGroupID": "ThisDoesntExist"
+            "mixerGroupID": "Master"
         }
     ]
 }

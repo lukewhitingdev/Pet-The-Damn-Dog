@@ -9,7 +9,7 @@ using UnityEngine.Audio;
 public class AudioController : MonoBehaviour
 {
 
-    [SerializeField] private AudioMixer audioMixer;
+    public AudioMixer audioMixer;
 
     [Serializable]
     public class Audio
@@ -90,6 +90,7 @@ public class AudioController : MonoBehaviour
                 Debug.LogWarning("[AudioCreation] Creating audio without corresponding mixer! Make sure the mixer exists before creating the sounds!");
             }
             sound.source.clip = Resources.Load<AudioClip>(audio.path);
+            sounds.Add(sound);
         }
     }
 

@@ -9,6 +9,7 @@ TagManager:
   - '[ShopUI]Item'
   - '[ShopUI]Title'
   - '[ShopUI]Content'
+  - '[Options]Content'
   layers:
   - Default
   - TransparentFX
