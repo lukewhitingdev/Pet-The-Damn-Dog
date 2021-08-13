@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class OptionsManager : MonoBehaviour
 {
-    GameObject contentObject;
+    private AudioController audioController;
 
     public void Awake()
     {
-        contentObject = GameObject.FindGameObjectWithTag("[Options]Content");
+        audioController = FindObjectOfType<AudioController>();
+    }
+
+    public void toggleOptionsMenu()
+    {
+        this.gameObject.SetActive(!this.gameObject.activeSelf);
+        audioController.getSound("click").Play();
     }
 }

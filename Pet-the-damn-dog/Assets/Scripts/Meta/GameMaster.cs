@@ -8,6 +8,7 @@ public class GameMaster : MonoBehaviour
     // Singleton.
     static private PointsController pointsController;
     static private PetPointController petPointController;
+    static private AudioController audioController;
     static public GameMaster instance;
 
     private double dateTimeDiff = 0;
@@ -22,6 +23,9 @@ public class GameMaster : MonoBehaviour
 
         if (petPointController == null)
             petPointController = FindObjectOfType<PetPointController>();
+
+        if (audioController == null)
+            audioController = FindObjectOfType<AudioController>();
 
         if (SaveManager.Load()) {
             Load();
@@ -61,7 +65,7 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    public void prestige() { pointsController.prestige(); }
+    public void prestige() { pointsController.prestige(); audioController.getSound("prestige").Play(); }
 
     // Clicking.
     private float clickPower = 1.0f;

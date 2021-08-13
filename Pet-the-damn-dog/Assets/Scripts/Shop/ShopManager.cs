@@ -28,9 +28,11 @@ public class ShopManager : MonoBehaviour
     // Shop Upgrades
     GameObject[] shopItems;
 
+    private AudioController audioController;
+
     private void Awake()
     {
-
+        audioController = FindObjectOfType<AudioController>();
         contentObject = GameObject.FindGameObjectWithTag("[ShopUI]Content");
 
         contentHeight = 0;
@@ -49,6 +51,12 @@ public class ShopManager : MonoBehaviour
 
         // Set the content rect height to the one we calculated when loading.
         contentObject.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, contentHeight + 150);
+    }
+
+    public void toggleUI()
+    {
+        this.gameObject.SetActive(!this.gameObject.activeSelf);
+        audioController.getSound("click").Play();
     }
 
     // Loads all the UI elements in the Resources/Shop/UI folder.

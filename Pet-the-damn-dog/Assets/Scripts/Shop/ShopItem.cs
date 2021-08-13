@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ShopItem : MonoBehaviour
 {
     private PointsController pointsController;
+    private AudioController audioController;
     public bool verbose = false;
 
     [Header("Name")]
@@ -67,6 +68,7 @@ public class ShopItem : MonoBehaviour
     public void onPurchase(string objectName)
     {
         pointsController = FindObjectOfType<PointsController>();
+        audioController = FindObjectOfType<AudioController>();
         ShopItem item = GameObject.Find(objectName + "(Clone)").GetComponent<ShopItem>();
 
         if(item.totalPPS > 0)
@@ -87,6 +89,8 @@ public class ShopItem : MonoBehaviour
         {
             item.oneTimeBought = true;
         }
+
+        audioController.getSound("upgradePurchase").Play();
     }
 
 }

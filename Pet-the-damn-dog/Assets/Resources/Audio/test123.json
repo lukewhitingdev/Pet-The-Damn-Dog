@@ -1,8 +1,23 @@
 {
     "wrappedList": [
         {
-            "id": "BackgroundMusic",
+            "id": "test",
             "path": "Audio\\Sources\\test",
+            "mixerGroupID": ""
+        },
+        {
+            "id": "click",
+            "path": "Audio\\Sources\\genericClick",
+            "mixerGroupID": "Master"
+        },
+        {
+            "id": "prestige",
+            "path": "Audio\\Sources\\prestigePurchase",
+            "mixerGroupID": "Master"
+        },
+        {
+            "id": "upgradePurchase",
+            "path": "Audio\\Sources\\upgradePurchase",
             "mixerGroupID": "Master"
         }
     ]
