@@ -99,3 +99,5 @@ public List<Audio> loadAudios(string path){ return JsonUtility.FromJson<ListWrap
 Dog sprites from: https://angryelk.itch.io/animated-corgi-sprite
 
 Unity File explorer from: https://github.com/gkngkc/UnityStandaloneFileBrowser
+
+Background Room from: https://www.pinterest.co.uk/pin/488570259575695058/
