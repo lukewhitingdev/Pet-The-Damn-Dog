@@ -90,7 +90,7 @@ public class ShopItem : MonoBehaviour
             item.oneTimeBought = true;
         }
 
-        audioController.getSound("upgradePurchase").Play();
+        audioController.getSound("purchase").Play();
     }
 
 }

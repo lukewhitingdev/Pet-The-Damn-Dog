@@ -14,6 +14,7 @@ public class OptionsManager : MonoBehaviour
     public void toggleOptionsMenu()
     {
         this.gameObject.SetActive(!this.gameObject.activeSelf);
-        audioController.getSound("click").Play();
+        FindObjectOfType<DogController>().setDogSpriteVisibility(!this.gameObject.activeSelf);
+        audioController.getSound((this.gameObject.activeSelf) ? "click" : "close").Play();
     }
 }

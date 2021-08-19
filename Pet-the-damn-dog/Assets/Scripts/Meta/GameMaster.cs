@@ -65,7 +65,7 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    public void prestige() { pointsController.prestige(); audioController.getSound("prestige").Play(); }
+    public void prestige() { pointsController.prestige(); audioController.getSound("prestigePurchase").Play(); }
 
     // Clicking.
     private float clickPower = 1.0f;
@@ -73,6 +73,7 @@ public class GameMaster : MonoBehaviour
     {
         pointsController.addPointsToTotal(clickPower);
         petPointController.spawnPetPoint(clickPower);
+        audioController.getSound("petClick").Play();
     }
     public void addClickPower(float value) {
         clickPower += value;

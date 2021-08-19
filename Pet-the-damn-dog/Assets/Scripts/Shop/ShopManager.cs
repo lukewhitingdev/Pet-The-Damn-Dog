@@ -56,7 +56,8 @@ public class ShopManager : MonoBehaviour
     public void toggleUI()
     {
         this.gameObject.SetActive(!this.gameObject.activeSelf);
-        audioController.getSound("click").Play();
+        FindObjectOfType<DogController>().setDogSpriteVisibility(!this.gameObject.activeSelf);
+        audioController.getSound((this.gameObject.activeSelf) ? "click" : "close").Play();
     }
 
     // Loads all the UI elements in the Resources/Shop/UI folder.

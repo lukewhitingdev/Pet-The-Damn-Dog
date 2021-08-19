@@ -5,10 +5,12 @@ using UnityEngine;
 public class DogController : MonoBehaviour
 {
     private Animator dogAnimator;
+    private SpriteRenderer dogSpriteRenderer;
 
     void Awake()
     {
         dogAnimator = GetComponentInChildren<Animator>();
+        dogSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -32,4 +34,6 @@ public class DogController : MonoBehaviour
             yield return waitForSeconds;                                       // Wait the desired seconds.
         }
     }
+
+    public void setDogSpriteVisibility(bool value) { dogSpriteRenderer.enabled = value; }
 }

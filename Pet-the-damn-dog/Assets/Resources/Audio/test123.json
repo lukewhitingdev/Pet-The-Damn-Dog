@@ -1,23 +1,28 @@
 {
     "wrappedList": [
         {
-            "id": "test",
-            "path": "Audio\\Sources\\test",
-            "mixerGroupID": ""
-        },
-        {
             "id": "click",
             "path": "Audio\\Sources\\genericClick",
             "mixerGroupID": "Master"
         },
         {
-            "id": "prestige",
+            "id": "close",
+            "path": "Audio\\Sources\\genericClose",
+            "mixerGroupID": "Master"
+        },
+        {
+            "id": "purchase",
+            "path": "Audio\\Sources\\genericPurchase",
+            "mixerGroupID": "Master"
+        },
+        {
+            "id": "prestigePurchase",
             "path": "Audio\\Sources\\prestigePurchase",
             "mixerGroupID": "Master"
         },
         {
-            "id": "upgradePurchase",
-            "path": "Audio\\Sources\\upgradePurchase",
+            "id": "petClick",
+            "path": "Audio\\Sources\\petClick",
             "mixerGroupID": "Master"
         }
     ]
