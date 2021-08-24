@@ -3,7 +3,7 @@ Pet the damn dog personal project
 
 
 ## Highlight areas
-### [Saving and loading system](https://github.com/lukewhitingdev/PTDD/blob/main/Pet-the-damn-dog/Assets/SaveManager.cs)
+### [Saving and loading system](https://github.com/lukewhitingdev/Pet-The-Damn-Dog/blob/main/Pet-the-damn-dog/Assets/Scripts/Meta/SaveManager.cs)
 #### Reasoning
 I wanted to create a saving system that was easy to use and didnt require you to create extra scripts just to save data.
 I used generic type parameters for multiple reasons:
@@ -27,7 +27,7 @@ public static object getData<T>(string id);
 public static bool checkIfDataExists<T>(string id);
 ```
 
-### [Upgrade Creator](https://github.com/lukewhitingdev/PTDD/blob/main/Pet-the-damn-dog/Assets/UpgradeCreator.cs)
+### [Upgrade Creator](https://github.com/lukewhitingdev/Pet-The-Damn-Dog/blob/main/Pet-the-damn-dog/Assets/Scripts/Upgrades/UpgradeCreator.cs)
 #### Reasoning
 I wanted a easy way to create the content for the idle game. Since idle games content mainly comes from the upgrade you can use to enrich your experience and progress through the game I thought that a easy way to create the content on the dev-side of things was a must.
 
@@ -60,7 +60,7 @@ foreach (var UpgradeProperty in upgradeProperties)
 }
 ```
 
-### [Audio System](https://github.com/lukewhitingdev/PTDD/blob/main/Pet-the-damn-dog/Assets/AudioController.cs)
+### [Audio System](https://github.com/lukewhitingdev/Pet-The-Damn-Dog/blob/main/Pet-the-damn-dog/Assets/Scripts/Audio/in-game/AudioController.cs)
 #### Reasoning
 I wanted to create a easy to use audio system that could be referenced throught the project and be easily editable and savable for future use. To do this I created a basic audio manager script that would control all the audio in game. This is suplemented by other editor scripts that are used to add, edit and remove audio from the game. Each imported audio can be referenced by its id that was set at import time. I feel this helps speed up the development process as i dont have to re-shuffle the array of audios everytime as it is automated now.
 
